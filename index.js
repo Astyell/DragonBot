@@ -5,7 +5,6 @@
  * @description This is the main file of the application.
  */
 
-//github shinaning
 /* ----------------------------------------------- */
 /*           Intialisation des requires            */
 /* ----------------------------------------------- */
