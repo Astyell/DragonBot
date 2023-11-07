@@ -24,7 +24,9 @@ let commandsfile = readdirSync("./commands");
 let client = {};
 let partials = [];
 let intents = [];
-commandsfile.forEach(files => {
+
+commandsfile.forEach(files => 
+{ 
     partials.push(require(`./commands/${files}`)?.partials)
     intents.push(require(`./commands/${files}`)?.intents)
     delete require.cache[require.resolve(`./commands/${files}`)]
