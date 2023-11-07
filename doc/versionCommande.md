@@ -31,6 +31,13 @@
 	Développeur : Astyell, kinton_hiryuu
 	Fonctionnalité : Permet l'échange de pokémons entre deux personnes.
 
+## info.js
+
+	Version : 1.0
+	Date : 07/11/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet de consulter les données d'un pokémon
+
 ## message.js
 
 	Version : 1.0

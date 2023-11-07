@@ -61,9 +61,7 @@ client.once('ready', c => {
         console.log(`commande ${files} créée`)
     })
 
-    client.user.setActivity('pokémons !', {
-        type: 'WATCHING'
-    });
+    client.user.setActivity('Pokémon HearthGold et SoulSilver !');
 })
 
 // Création des commandes qui sont dans le dossier "commands"
