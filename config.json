@@ -1,0 +1,18 @@
+{
+    "sql": {
+        "multipleStatements": true,
+        "connectionLimit": 100,
+        "host": "localhost",
+        "user": "root",
+        "password": "password",
+        "database": "database_Name"
+    },
+    "token": "https://discord.com/developers/applications",
+    "prefix": "/",
+    "devID": "228948435259228160",
+    "clientId": "Your_BOT_ID",
+	"guildId": "Your_Guild_ID",
+    "channelLog" : "Your_Log_ChannelID",
+    "channelAnnonce" : "Your_Event_ChannelID",
+    "pingRole" : "ID_Role"
+}
