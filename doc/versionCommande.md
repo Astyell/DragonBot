@@ -87,3 +87,10 @@
 	Date : 25/10/2023
 	Développeur : kinton_hiryuu
 	Modifications : Sans paramètre, la commande affiche la stat de l'utilisateur qui l'a envoyé. Mais aussi disponible dans les application en raccourci rapide.
+
+## stat.js
+
+	Version : 1.0
+	Date : 8/11/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet d'envoyer un message dans le channel de log pour donner un avis
