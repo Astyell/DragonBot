@@ -137,7 +137,7 @@ module.exports.run = async (interaction) =>
 
 		/* On envoit la liste des personnes qui ont le pokémons */
 
-		db.query(`SELECT U.nom_utilisateur, COUNT(PC.Id_Pokemon) AS nombre_pokemon FROM PC JOIN Utilisateur U ON PC.Id_DresseurAct = U.Id_Discord WHERE PC.Id_Pokemon = ${IDPokemon} AND U.nom_utilisateur != 'astyell2' GROUP BY U.nom_utilisateur;`, function (err, selectUser, fields) 
+		db.query(`SELECT U.nom_utilisateur, COUNT(PC.Id_Pokemon) AS nombre_pokemon FROM PC JOIN Utilisateur U ON PC.Id_DresseurAct = U.Id_Discord WHERE PC.Id_Pokemon = ${IDPokemon} GROUP BY U.nom_utilisateur;`, function (err, selectUser, fields) 
 		{
 			if (err) { console.error(err); }
 
