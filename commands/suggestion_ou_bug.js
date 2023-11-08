@@ -16,7 +16,7 @@ module.exports = {
 module.exports.create = () => {
 	client.application.commands.create
 	({
-		"name": "suggestion", //Nom sensibleà la casse, pas de majuscule
+		"name": "suggestion_ou_bug", //Nom sensibleà la casse, pas de majuscule
 		"description": "Permet d'envoyer une suggestion ou de signaler un bug aux développeurs",
 		options:
 		[
@@ -35,10 +35,11 @@ module.exports.run = async (interaction) =>
 {
 	const channel = client.channels.cache.get(config.channelLog);
 	let message = interaction.options.getString('message');
+	let user = interaction.user.username;
 
 	channel.send
 	({
-		content:`Hey boss <@${config.devID}> ! Un nouveau message pour toi !`, 
+		content:`Hey boss <@${config.devID}> ! Un nouveau message pour toi de la part de ${user} !`, 
 		embeds:[
 			{
 			"type": "rich",

@@ -52,6 +52,16 @@ client.login(require("../../tokens.json").bot.discord.ali.dragonBot)
 // On définit tous les modules que l'on va exporte dans d'autres fichiers
 module.exports = { discordClient: client, client, db, config: CONFIG }
 
+/* Supprimer une commande */
+
+// const { REST, Routes } = require('discord.js');
+
+// const rest = new REST().setToken(CONFIG.token);
+
+// rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1171836096645177376'))
+// 	.then(() => console.log('Successfully deleted guild command'))
+// 	.catch(console.error);
+
 // Lorsque le bot démarre il envoie deux trois messages de vérification dans la console
 client.once('ready', c => {
     console.log(`${Date(Date.now()).toLocaleString('fr-FR')} | ${client.user.username} | ${client.guilds.cache.size} guilds`)
