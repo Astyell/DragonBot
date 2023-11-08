@@ -88,7 +88,7 @@
 	Développeur : kinton_hiryuu
 	Modifications : Sans paramètre, la commande affiche la stat de l'utilisateur qui l'a envoyé. Mais aussi disponible dans les application en raccourci rapide.
 
-## stat.js
+## suggestion.js
 
 	Version : 1.0
 	Date : 8/11/2023
