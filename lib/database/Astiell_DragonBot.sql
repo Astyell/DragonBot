@@ -686,32 +686,35 @@ CREATE or replace TABLE Possede(
 );
 
 
-CREATE OR REPLACE TABLE EvolueAvec
+CREATE TABLE EvolueAvec
 (
    Id_Pokemon INT,
+   Id_Pokemon_Evolue INT,
    Id_Objet INT,
+   
    PRIMARY KEY(Id_Pokemon, Id_Objet),
    FOREIGN KEY(Id_Pokemon) REFERENCES Pokemon(Id_Pokemon),
+   FOREIGN KEY(Id_Pokemon_Evolue) REFERENCES Pokemon(Id_Pokemon),
    FOREIGN KEY(Id_Objet) REFERENCES Objet(Id_Objet)
 );
 
 INSERT INTO `EvolueAvec` VALUES
-(  25, 3),
-(  30, 4),
-(  33, 4),
-(  35, 4),
-(  37, 2),
-(  39, 4),
-(  44, 5),
-(  58, 2),
-(  61, 1),
-(  70, 5),
-(  90, 1),
-( 102, 5),
-( 120, 1),
-( 133, 1),
-( 133, 2),
-( 133, 3);
+(  25, 26, 3),
+(  30, 31, 4),
+(  33, 34, 4),
+(  35, 36, 4),
+(  37, 38, 2),
+(  39, 40, 4),
+(  44, 45, 5),
+(  58, 59, 2),
+(  61, 62, 1),
+(  70, 71, 5),
+(  90, 91, 1),
+( 102,103, 5),
+( 120,121, 1),
+( 133,134, 1),
+( 133,135, 3),
+( 133,136, 2);
 
 
 

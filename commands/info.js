@@ -197,6 +197,8 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 		}
 	});
 
+	if (messageEvolution == "") { messageEvolution = "Ce pokémon ne possède pas d'évolution"; }
+
 	let embed = 
 	[
 		{
