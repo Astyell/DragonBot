@@ -45,6 +45,11 @@
 	Développeur : Astyell
 	Fonctionnalité : Permet de consulter les données d'un pokémon
 
+	Version : 1.1
+	Date : 13/11/2023
+	Développeur : Astyell
+	Modifications : Affiche les évolutions d'un pokémon, proposé par julia123456789037.
+
 ## message.js
 
 	Version : 1.0
