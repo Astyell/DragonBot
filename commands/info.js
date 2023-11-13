@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.0 - 07/11/2023
+ * @version 1.1 - 13/11/2023
  * @creation 07/11/2023 
  * @description Renvoie les informations sur un pokémon
  */
@@ -95,22 +95,18 @@ module.exports.run = async (interaction) =>
 					{
 						if (err) { console.error(err); }
 
-						let liste = "";
-
-						selectUser.forEach(element => 
+						db.query(`SELECT * FROM Pokemon p JOIN Evolution e ON e.id_Pokemon_Evolue = p.Id_Pokemon WHERE e.id_Pokemon_Evoluant = ${pokemonID}`, function (err, selectEvolution, fields) 
 						{
-							liste += `- **${element.nom_utilisateur}** en possède ${element.nombre_pokemon}.\n`;
-						})
+							if (err) { console.error(err); }
 
-						console.log(liste);
+							snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}/`).then (captureData => 
+							{
+								captureData = captureData.body;
 
-						snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}/`).then (captureData => 
-						{
-							captureData = captureData.body;
-
-							interaction.editReply({content : "", embeds : genererEmbed(pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData), components: genererBouton(pokemonID, nomPokemon)});
-						})
-						return;
+								interaction.editReply({content : "", embeds : genererEmbed(pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData, selectEvolution), components: genererBouton(pokemonID, nomPokemon)});
+							})
+							return;
+						});
 
 					});
 				
@@ -159,12 +155,47 @@ module.exports.run = async (interaction) =>
 
 }
 
-function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData)
+function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData, selectEvolution)
 {
 	let Leg, Fab;
 
 	estLegendaire == 1 ? Leg = "Oui" : Leg  = "Non";
 	estFabuleux   == 1 ? Fab = "Oui" : Fab  = "Non";
+
+	console.log(selectEvolution);
+
+	let messageEvolution = "";
+
+	selectEvolution.forEach(element => 
+	{
+		messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}**`;
+
+		switch (element.type_Evolution) 
+		{
+			case 'N':
+				messageEvolution += " (par Niveau)\n";
+				break;
+
+			case 'O':
+				messageEvolution += " (par Objet)\n";
+				break;
+
+			case 'E':
+				messageEvolution += " (par Echange - Cable Link)\n";
+				break;
+			
+			case 'B':
+				messageEvolution += " (par Bonheur - Noeud Destin)\n";
+				break;
+			
+			case 'A':
+				messageEvolution += " (par Attaque - CT)\n";
+				break;
+		
+			default:
+				break;
+		}
+	});
 
 	let embed = 
 	[
@@ -184,6 +215,11 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 			"name": `Est-il fabuleux ?`,
 			"value": `${Fab}`,
 			"inline": true
+			},
+			{
+				"name": `Evolutions :`,
+				"value": `${messageEvolution}`,
+				"inline": false
 			},
 			{
 			"name": `Nombre de personne qui le possède :`,
