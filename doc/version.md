@@ -1,13 +1,8 @@
-+------------------------------------------------------------------------+
-|                           PROJET DRAGON BOT                            |
-+------------------------------------------------------------------------+
+# Projet DragonBot
 
-/* ----------------------------------------------- */
-/*                   Version 1.0                   */
-/* ----------------------------------------------- */
+## Version 1.0
 
-	/* Listes des commandes pour les utilisateurs */
-	/* ------------------------------------------ */
+	### Commandes pour les utilisateurs
 
 		/icone [@User]  : Renvoie l'image de la personne mentionnée
 		/hug            : Génére un gif différent pour faire un "câlin" à la personne
@@ -16,52 +11,40 @@
 		/say   [String] : Permet de faire dire quelque chose au Bot
 		/sus            : Permet de générer un embed venant dire si la personne était ou non imposter
 
-	/* Listes des commandes pour les modérateurs  */
-	/* ------------------------------------------ */
+	### Commandes pour les modérateurs
 
 		/check   [@User] [Race1] [Race2] : Octroie les bons rôle à l'utilisateur mentionné
 		/recheck [@User] [Race1] [Race2] : Octroie les bons rôle à l'utilisateur mentionné
 		/post    [@User] [Lien]          : Poste la fiche de l'utilisateur et le lien de celle-ci
 		/modo                            : Donne la liste des commandes de modérateurs
 
-/* ----------------------------------------------- */
-/*                   Version 2.0                   */
-/* ----------------------------------------------- */
+## Version 2.0
 
-	/* Listes des commandes pour les utilisateurs */
-	/* ------------------------------------------ */
+	### Commandes pour les utilisateurs
 
 		/ping    : Renvoie Pong !
 		/pokemon : Renvoie le pokémon capturé et l'insère dans la base de donnée
 		/pokedex : Renvoie un simple lien vers la page internet
 		/help    : Commande non codée
 
-	/* Listes des commandes pour les modérateurs  */
-	/* ------------------------------------------ */
+	### Commandes pour les modérateurs
 
-/* ----------------------------------------------- */
-/*                 Version 2.0.1                   */
-/* ----------------------------------------------- */
+## Version 2.0.1
 
-	/* Listes des commandes pour les utilisateurs */
-	/* ------------------------------------------ */
+	### Commandes pour les utilisateurs
 
 		/ping    : Renvoie Pong !
 		/pokemon : Renvoie le pokémon capturé et l'insère dans la base de donnée
 		/pokedex : Renvoie un simple lien vers la page internet
 		/stat    : Permet de consulter les statistiques d'une personne
 
-	/* Listes des commandes pour les modérateurs  */
-	/* ------------------------------------------ */
+	### Commandes pour les modérateurs
 
-/* ----------------------------------------------- */
-/*                 Version 2.1.0                   */
-/* ----------------------------------------------- */
+# Version 2.1
 
 	UPDATE DATABASE : Ajout d'une table échange, ajout d'une table PC et ajout de trigger pour automatisé le programme
 
-	/* Listes des commandes pour les utilisateurs */
-	/* ------------------------------------------ */
+	### Commandes pour les utilisateurs
 
 		/ping    : Renvoie Pong !
 		/pokemon : Renvoie le pokémon capturé et l'insère dans la base de donnée
@@ -70,17 +53,13 @@
 		/echange : Permet d'échanger deux pokemon non shiny entre deux utilisateurs
 
 
-	/* Listes des commandes pour les modérateurs  */
-	/* ------------------------------------------ */
+	### Commandes pour les modérateurs
 
-/* ----------------------------------------------- */
-/*                 Version 2.1.1                   */
-/* ----------------------------------------------- */
+## Version 2.1.1
 
 	UPDATE DATABASE : Ajout de la monnaie
 
-	/* Listes des commandes pour les utilisateurs */
-	/* ------------------------------------------ */
+	### Commandes pour les utilisateurs
 
 		/ping    : Renvoie Pong !
 		/pokemon : Renvoie le pokémon capturé et l'insère dans la base de donnée
@@ -90,5 +69,27 @@
 		/doublon : Permet d'afficher les personnes ayant des doublons
 
 
-	/* Listes des commandes pour les modérateurs  */
-	/* ------------------------------------------ */
+	### Commandes pour les modérateurs
+
+# Version 2.2
+
+	UPDATE DATABASE : Ajout des évolutions de chaque pokémons, des objets et des tables associées
+
+	### Commandes pour les utilisateurs
+
+		/ping                  : Renvoie Pong !
+		/pokemon               : Renvoie le pokémon capturé et l'insère dans la base de donnée
+		/pokedex               : Renvoie un simple lien vers la page internet
+		/stat                  : Permet de consulter les statistiques d'une personne
+		/echange               : Permet d'échanger deux pokemon non shiny entre deux utilisateurs
+		/doublon               : Permet d'afficher les personnes ayant des doublons
+		/info                  : Envoie les informations du pokémons
+		/evoluer               : Permet d'évoluer un pokémon
+		/suggestion_ou_debug   : Permet de suggérer ou de report un bug
+		/boutique              : Permet de gérer la boutique
+
+
+	### Commandes pour les modérateurs
+
+		/debug   : Fonction permettant d'afficher un pokémon aléatoire pour tester la méthode de capture
+		/message : Envoie un message dans le channel information du bot

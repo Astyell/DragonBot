@@ -1,5 +1,12 @@
 # Historique des versions des commandes
 
+## boutique.js
+
+	Version : 1.0
+	Date : 13/11/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet de gérer la boutique.
+
 ## debug.js
 
 	Version : 1.0

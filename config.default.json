@@ -14,5 +14,6 @@
 	"guildId": "Your_Guild_ID",
     "channelLog" : "Your_Log_ChannelID",
     "channelAnnonce" : "Your_Event_ChannelID",
+    "channelBoutique" : "Your_Boutique_ChannelID",
     "pingRole" : "ID_Role"
 }

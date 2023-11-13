@@ -554,6 +554,168 @@ CREATE TABLE `Utilisateur` (
   `monnaie` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE OR REPLACE `Evolution` (
+  `id_Pokemon_Evoluant` int(11) NOT NULL,
+  `id_Pokemon_Evolue` int(11) NOT NULL,
+  `stade_Evolution` int(3) NOT NULL,
+  `type_Evolution` varchar(1) NOT NULL check (Type_Evolution in ('N', 'O', 'B', 'A', 'E')),
+  PRIMARY KEY (`id_Pokemon_Evoluant`, `id_Pokemon_Evolue`),
+  CONSTRAINT `fk_Evolue_id_Pokemon_Evoluant` FOREIGN KEY (`id_Pokemon_Evoluant`) REFERENCES `Pokemon` (`Id_Pokemon`),
+  CONSTRAINT `fk_Evolue_id_Pokemon_Evolue` FOREIGN KEY (`id_Pokemon_Evolue`) REFERENCES `Pokemon` (`Id_Pokemon`)
+);
+
+
+INSERT INTO `Evolution` VALUES
+(   1,   2,  1, 'N'),
+(   2,   3,  2, 'N'),
+(   4,   5,  1, 'N'),
+(   5,   6,  2, 'N'),
+(   7,   8,  1, 'N'),
+(   8,   9,  2, 'N'),
+(  10,  11,  0, 'N'),
+(  11,  12,  1, 'N'),
+(  13,  14,  0, 'N'),
+(  14,  15,  1, 'N'),
+(  16,  17,  1, 'N'),
+(  17,  18,  2, 'N'),
+(  19,  20,  2, 'N'),
+(  21,  22,  2, 'N'),
+(  23,  24,  2, 'N'),
+(  25,  26,  2, 'O'),
+(  27,  28,  2, 'N'),
+(  29,  30,  1, 'N'),
+(  30,  31,  2, 'O'),
+(  32,  33,  1, 'N'),
+(  33,  34,  2, 'O'),
+(  35,  36,  2, 'O'),
+(  37,  38,  2, 'O'),
+(  39,  40,  2, 'O'),
+(  41,  42,  2, 'N'),
+(  43,  44,  1, 'N'),
+(  44,  45,  2, 'O'),
+(  46,  47,  2, 'N'),
+(  48,  49,  2, 'N'),
+(  50,  51,  2, 'N'),
+(  52,  53,  2, 'N'),
+(  54,  55,  2, 'N'),
+(  56,  57,  2, 'N'),
+(  58,  59,  2, 'O'),
+(  60,  61,  1, 'N'),
+(  61,  62,  2, 'O'),
+(  63,  64,  1, 'N'),
+(  64,  65,  2, 'E'),
+(  66,  67,  1, 'N'),
+(  67,  68,  2, 'E'),
+(  69,  70,  1, 'N'),
+(  70,  71,  2, 'O'),
+(  72,  73,  2, 'N'),
+(  74,  75,  1, 'N'),
+(  75,  76,  2, 'E'),
+(  77,  78,  2, 'N'),
+(  79,  80,  2, 'N'),
+(  81,  82,  2, 'N'),
+(  84,  85,  2, 'N'),
+(  86,  87,  2, 'N'),
+(  88,  89,  2, 'N'),
+(  90,  91,  2, 'O'),
+(  92,  93,  1, 'N'),
+(  93,  94,  2, 'E'),
+(  96,  97,  2, 'N'),
+(  98,  99,  2, 'N'),
+( 100, 101,  2, 'N'),
+( 102, 103,  2, 'O'),
+( 104, 105,  2, 'N'),
+( 109, 110,  2, 'N'),
+( 111, 112,  2, 'N'),
+( 116, 117,  1, 'N'),
+( 118, 119,  1, 'N'),
+( 120, 121,  2, 'O'),
+( 129, 130,  2, 'N'),
+( 133, 134,  2, 'O'),
+( 133, 135,  2, 'O'),
+( 133, 136,  2, 'O'),
+( 138, 139,  2, 'N'),
+( 140, 141,  2, 'N'),
+( 147, 148,  2, 'N'),
+( 148, 149,  3, 'N');
+
+
+CREATE TABLE `Evolue` (
+  `evolue_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `pokemon_Evoluant` int(11) NOT NULL,
+  `pokemon_Evolue` int(11) NOT NULL,
+  `id_Utilisateur` varchar(50) NOT NULL,
+  `dateEvolution` date NOT NULL,
+  PRIMARY KEY (`evolue_ID`),
+  CONSTRAINT `fk_Evolution_evolue` FOREIGN KEY (`pokemon_Evoluant`, `pokemon_Evolue`) REFERENCES `Evolution` (`id_Pokemon_Evoluant`, `id_Pokemon_Evolue`),
+  CONSTRAINT `fk_Evolution_evolue_UserID` FOREIGN KEY (`id_Utilisateur`) REFERENCES `Utilisateur` (`Id_Discord`)
+);
+
+
+/* stade_Evolution = 0, 1, 2, 3*/
+/* 0 pour les pokémons insecte facile à faire évoluer */
+/* 1 pour les pokémon junior dans une famille de 3 (Exemple : Bulbizarre) */
+/* 2 pour les autres pokemons (Exemple : Herbizarre, Taupiqueur) */
+/* 3 pour les familles de dragon et pokemon compliqué */
+/* Type d'évolution possible Niveau (N), Objet (O), Bonheur (B), Attaque (A), Echange (E) */
+
+CREATE OR REPLACE TABLE Objet
+(
+  Id_Objet INT AUTO_INCREMENT,
+  nomObjet VARCHAR(50)  NOT NULL,
+  prix INT,
+  PRIMARY KEY(Id_Objet)
+);
+
+INSERT INTO `Objet` (nomObjet, prix) VALUES
+("Pierre Eau", 1500), -- 1
+("Pierre Feu", 1500), -- 2
+("Pierre Foudre", 1500), -- 3
+("Pierre Lune", 1500), -- 4
+("Pierre Plante", 1500), -- 5
+("Cable Link", 1200); -- 6 
+
+CREATE or replace TABLE Possede(
+   Id_Discord VARCHAR(50) ,
+   Id_Objet INT,
+   quantite INT,
+   PRIMARY KEY(Id_Discord, Id_Objet),
+   FOREIGN KEY(Id_Discord) REFERENCES Utilisateur(Id_Discord),
+   FOREIGN KEY(Id_Objet) REFERENCES Objet(Id_Objet)
+);
+
+
+CREATE OR REPLACE TABLE EvolueAvec
+(
+   Id_Pokemon INT,
+   Id_Objet INT,
+   PRIMARY KEY(Id_Pokemon, Id_Objet),
+   FOREIGN KEY(Id_Pokemon) REFERENCES Pokemon(Id_Pokemon),
+   FOREIGN KEY(Id_Objet) REFERENCES Objet(Id_Objet)
+);
+
+INSERT INTO `EvolueAvec` VALUES
+(  25, 3),
+(  30, 4),
+(  33, 4),
+(  35, 4),
+(  37, 2),
+(  39, 4),
+(  44, 5),
+(  58, 2),
+(  61, 1),
+(  70, 5),
+(  90, 1),
+( 102, 5),
+( 120, 1),
+( 133, 1),
+( 133, 2),
+( 133, 3);
+
+
+
+
 --
 -- Index pour les tables déchargées
 --

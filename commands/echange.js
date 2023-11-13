@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.0 - 23/10/2023
+ * @version 1.0 - 13/11/2023
  * @creation 18/10/2023 
  * @description Permet de faire un échange de deux pokémons entre deux utilisateurs
  */
@@ -59,7 +59,7 @@ module.exports.create = () => {
 module.exports.run = async (interaction) => {
 
 	if (interaction.isCommand()) {
-		await interaction.deferReply({ ephemeral: false })
+		await interaction.deferReply({ ephemeral: true })
 
 		let commanditaire = interaction.user;
 		let cible = interaction.options.getUser('utilisateur');

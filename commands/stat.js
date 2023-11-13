@@ -101,14 +101,16 @@ module.exports.run = async (interaction) =>
 								
 								db.query(`SELECT monnaie FROM Utilisateur WHERE Id_Discord = ${cible.id};`, function (err, totalMonnaie, fields) 
 								{
-									if (err) { console.error(err); }
+									db.query(`SELECT o.Id_Objet, nomObjet, quantite FROM Possede p JOIN Objet o ON p.Id_Objet = o.Id_Objet WHERE Id_Discord = ${cible.id};`, function (err, selectPossede, fields) 
+									{
+										if (err) { console.error(err); }
 
-									monnaie = totalMonnaie[0].monnaie;
-									console.log("Total argent : " + monnaie);
-										
-									interaction.editReply({ embeds : genererEmbed(totalPokemonCap, totalPokemonDiff, totalPokemonLeg, totalPokemonShiny, totalPokemon, cible, monnaie), ephemeral: false });
-									return;
-										
+										monnaie = totalMonnaie[0].monnaie;
+										console.log("Total argent : " + monnaie);
+											
+										interaction.editReply({ embeds : genererEmbed(totalPokemonCap, totalPokemonDiff, totalPokemonLeg, totalPokemonShiny, totalPokemon, cible, monnaie, selectPossede), ephemeral: false });
+										return;
+									});
 								});
 									
 							});
@@ -124,9 +126,15 @@ module.exports.run = async (interaction) =>
 	});
 }
 
-function genererEmbed (totalPokemonCap, totalPokemonDiff, totalPokemonLeg, totalPokemonShiny, totalPokemon, cible, monnaie)
+function genererEmbed (totalPokemonCap, totalPokemonDiff, totalPokemonLeg, totalPokemonShiny, totalPokemon, cible, monnaie, selectPossede)
 {
 	let embed;
+	let message = "";
+
+	selectPossede.forEach(element => 
+	{
+		message += `${element.nomObjet} (${element.quantite})\n`;
+	});
 
 	embed = 
 	[
@@ -158,6 +166,11 @@ function genererEmbed (totalPokemonCap, totalPokemonDiff, totalPokemonLeg, total
 			{
 			"name": `Compte en banque :`,
 			"value": `${monnaie} Pokédollars`,
+			"inline": false
+			},
+			{
+			"name": `Inventaire :`,
+			"value": `${message}`,
 			"inline": false
 			} 
 		],
