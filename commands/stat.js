@@ -136,6 +136,8 @@ function genererEmbed (totalPokemonCap, totalPokemonDiff, totalPokemonLeg, total
 		message += `${element.nomObjet} (${element.quantite})\n`;
 	});
 
+	if (message == "") { message = "Votre inventaire est vide."; }
+
 	embed = 
 	[
 		{
