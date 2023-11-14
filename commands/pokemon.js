@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.1.1 - 06/11/2023
+ * @version 1.1.2 - 06/11/2023
  * @creation 14/10/2023 
  * @description Permet de capturer un pokémon selon un taux de capture défini dans la base de donnée
  */
@@ -203,7 +203,7 @@ function genererEmbed (nomUser, nom_Pokemon, Shiny, tauxCapture, id_Pokemon, cap
 	embed = 
 	[{
 		"type": "rich",
-		"title": `Félictations ${nomUser} tu as capturé un ${nom_Pokemon} !`,
+		"title": `Félictations ${nomUser} tu as capturé un ${nom_Pokemon} (N°${id_Pokemon}) !`,
 		"url": `https://www.pokepedia.fr/${nom_Pokemon}`,
 		"description": "",
 		"color": 0x1b5280,

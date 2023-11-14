@@ -95,12 +95,10 @@ module.exports.run = async (interaction) =>
 					{
 						if (err) { console.error(err); }
 
-						db.query(`SELECT nom_Pokemon, o.Id_Objet, nomObjet, type_Evolution FROM Pokemon p JOIN Evolution e ON e.id_Pokemon_Evolue = p.Id_Pokemon
-						JOIN EvolueAvec ea ON e.id_Pokemon_Evoluant = ea.Id_Pokemon AND e.id_Pokemon_Evolue = ea.Id_Pokemon_Evolue
-                        JOIN Objet o ON o.Id_Objet = ea.Id_Objet
-						WHERE e.id_Pokemon_Evoluant = ${pokemonID};`, function (err, selectEvolution, fields) 
+						db.query(`SELECT * FROM Pokemon p JOIN Evolution e ON e.id_Pokemon_Evolue = p.Id_Pokemon WHERE e.id_Pokemon_Evoluant = ${pokemonID}`, function (err, selectEvolution, fields) 
 						{
-							if (err) { console.error(err); }
+							if (err) { console.error(err);}
+
 
 							snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${pokemonID}/`).then (captureData => 
 							{
@@ -109,7 +107,10 @@ module.exports.run = async (interaction) =>
 								interaction.editReply({content : "", embeds : genererEmbed(pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData, selectEvolution), components: genererBouton(pokemonID, nomPokemon)});
 							})
 							return;
+							
 						});
+
+						/*  */
 
 					});
 				
@@ -158,7 +159,7 @@ module.exports.run = async (interaction) =>
 
 }
 
-function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData, selectEvolution)
+function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCapture, nbUtilisateur, nbUtilisateurPKM, captureData, selectEvolution, selectObjet)
 {
 	let Leg, Fab;
 
@@ -166,39 +167,42 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 	estFabuleux   == 1 ? Fab = "Oui" : Fab  = "Non";
 
 	console.log(selectEvolution);
+	console.log(selectObjet);
 
 	let messageEvolution = "";
 
 	selectEvolution.forEach(element => 
 	{
-		messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}**`;
+			messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}**`;
 
-		switch (element.type_Evolution) 
-		{
-			case 'N':
-				messageEvolution += " (par Niveau)\n";
-				break;
+			switch (element.type_Evolution) 
+			{
+				case 'N':
+					messageEvolution += " (par Niveau)\n";
+					break;
 
-			case 'O':
-				messageEvolution += ` (par Objet - ${element.nomObjet})\n`;
-				break;
+				case 'O':
+					messageEvolution += ` (par Objet)\n`;
+					break;
 
-			case 'E':
-				messageEvolution += " (par Echange - Cable Link)\n";
-				break;
+				case 'E':
+					messageEvolution += " (par Echange - Cable Link)\n";
+					break;
+				
+				case 'B':
+					messageEvolution += " (par Bonheur - Noeud Destin)\n";
+					break;
+				
+				case 'A':
+					messageEvolution += " (par Attaque - CT)\n";
+					break;
 			
-			case 'B':
-				messageEvolution += " (par Bonheur - Noeud Destin)\n";
-				break;
-			
-			case 'A':
-				messageEvolution += " (par Attaque - CT)\n";
-				break;
-		
-			default:
-				break;
-		}
+				default:
+					break;
+			}
 	});
+
+	//console.log ("MESSAGE : " + messageEvolution);
 
 	if (messageEvolution == "") { messageEvolution = "Ce pokémon ne possède pas d'évolution"; }
 
