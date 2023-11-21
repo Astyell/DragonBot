@@ -233,7 +233,6 @@ module.exports.run = async (interaction) => {
 												{
 													const channel = client.channels.cache.get(config.channelLog);
 													channel.send(`${cible.username} a accepté d'échanger son ${ensArgs[8]} avec le ${ensArgs[6]} de ${commanditaire.username}.`);
-									
 												})
 											})
 

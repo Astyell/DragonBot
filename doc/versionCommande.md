@@ -31,7 +31,7 @@
 	Développeur : Astyell
 	Modifications : Option de Recherche par utilisateur et par pokémons, proposé par morasuke.
 
-## echange.js
+## echan²ge.js
 
 	Version : 1.0
 	Date : 23/10/2023
