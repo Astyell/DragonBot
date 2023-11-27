@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.1 - 13/11/2023
+ * @version 1.1.1 - 13/11/2023
  * @creation 07/11/2023 
  * @description Renvoie les informations sur un pokémon
  */
