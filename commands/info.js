@@ -95,7 +95,7 @@ module.exports.run = async (interaction) =>
 					{
 						if (err) { console.error(err); }
 
-						db.query(`SELECT * FROM Pokemon p JOIN Evolution e ON e.id_Pokemon_Evolue = p.Id_Pokemon WHERE e.id_Pokemon_Evoluant = ${pokemonID}`, function (err, selectEvolution, fields) 
+						db.query(`SELECT * FROM Pokemon p JOIN Evolution e ON e.id_Pokemon_Evolue = p.Id_Pokemon JOIN Type_Evolution t ON  t.Id_Type_Evolution = e.Id_Type_Evolution WHERE e.id_Pokemon_Evoluant = ${pokemonID}`, function (err, selectEvolution, fields) 
 						{
 							if (err) { console.error(err);}
 
@@ -173,33 +173,9 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 
 	selectEvolution.forEach(element => 
 	{
-			messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}**`;
+		messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}** (Par **${element.nom_Type_Evolution.replace("_", ' ')}**)\n`;
 
-			switch (element.type_Evolution) 
-			{
-				case 'N':
-					messageEvolution += " (par Niveau)\n";
-					break;
-
-				case 'O':
-					messageEvolution += ` (par Objet)\n`;
-					break;
-
-				case 'E':
-					messageEvolution += " (par Echange - Cable Link)\n";
-					break;
-				
-				case 'B':
-					messageEvolution += " (par Bonheur - Noeud Destin)\n";
-					break;
-				
-				case 'A':
-					messageEvolution += " (par Attaque - CT)\n";
-					break;
 			
-				default:
-					break;
-			}
 	});
 
 	//console.log ("MESSAGE : " + messageEvolution);
