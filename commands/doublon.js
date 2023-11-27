@@ -66,11 +66,18 @@ module.exports.run = async (interaction) =>
 			if (result.length >= 1)
 			{
 				let message = "";
-				result.forEach(element => {
+				let cpt = 0;
+
+				result.forEach(element => 
+				{
+
 					message += `- **${element.nom_utilisateur}** possède ${element.occurrences} ${element.nom_Pokemon} (ID : **__${element.Id_Pokemon}__**).\n`;
-				}),
+
+					cpt++;
+				});
 		
-					interaction.reply({
+					interaction.reply
+					({
 						content: 'Chef, oui chef !',
 						embeds:
 							[
