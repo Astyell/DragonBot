@@ -31,12 +31,19 @@
 	Développeur : Astyell
 	Modifications : Option de Recherche par utilisateur et par pokémons, proposé par morasuke.
 
-## echan²ge.js
+## echange.js
 
 	Version : 1.0
 	Date : 23/10/2023
 	Développeur : Astyell, kinton_hiryuu
 	Fonctionnalité : Permet l'échange de pokémons entre deux personnes.
+
+## echange.js
+
+	Version : 1.0
+	Date : 27/11/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet l'échange de pokémons entre deux personnes, proposé par julia123456789037 et tourneviz.
 
 ## info.js
 
