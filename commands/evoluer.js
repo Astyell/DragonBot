@@ -222,7 +222,7 @@ module.exports.run = async (interaction) =>
 		/* ------------------------------------------------- */
 
 		// On update le message envoyé
-		interaction.update({content: 'Ta demande a bien été prise en compte :D' });
+		interaction.update({content: 'Ta demande a bien été prise en compte :D', embed : [], components : [] });
 
 		/* ------------------------------------------------- */
 		/*                  Vérifications                    */

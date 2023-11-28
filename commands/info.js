@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.1.1 - 13/11/2023
+ * @version 1.1.1 - 27/11/2023
  * @creation 07/11/2023 
  * @description Renvoie les informations sur un pokémon
  */
@@ -175,7 +175,7 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 	{
 		messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}** (Par **${element.nom_Type_Evolution.replace("_", ' ')}**)\n`;
 
-			
+		if (element.Id_Type_Evolution == 1 ) { messageEvolution += "\n (Nombre de pokémon nécessaire(s) : " + (element.stade_Evolution + 1) + ")";}
 	});
 
 	//console.log ("MESSAGE : " + messageEvolution);

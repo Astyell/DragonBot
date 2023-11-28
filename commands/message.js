@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.0 - 05/11/2023
+ * @version 1.0 - 27/11/2023
  * @creation 05/11/2023 
  * @description Permet d'envoyer un certain message dans le channel d'annonces
  */
@@ -26,26 +26,28 @@ module.exports.run = async (interaction) =>
 {
 	const channel = client.channels.cache.get(config.channelLog);
 	const pingID  = config.pingRole;
-	channel.send
+	channel.send //<@&${pingID}>
 	(
 		{
-			content:`|| <@&${pingID}> ||`, 
-			embeds:
-			[
-				{
-					"type": "rich",
-					"title": `Petite liste du taux de drop de chacun pokémons`,
-					"description": `Vous vous demandiez peut-être combien quelle était la probabilité de trouver ce roucool. Voici les probabilités de trouver un pokémon selon son taux d'apparition !`,
-					"color": 0x00005a,
-					"fields": [
-					  {
-						"name": `zqe`,
-						"value": `grzq`
-					  }
-					]
-				  }
-		  	], 
-			ephemeral:true
+			content:`# Update Majeur partie 2 : La revanche contre évoli \n 
+			||  || 
+			\n\n
+			Vous en rêviez (probablement pas non plus), nous l'avons fait ! Il est désormais possible de faire évoluer **TOUT** les pokémons.\n\n
+			
+			## Comment cela fonctionne t-il ?\n\n
+			
+			Le nécessaire pour évoluer un pokémon dépendra principalement de sa façon d'évoluer, j'en liste ainsi 5 grandes catégories :\n
+			- Le Niveau\n
+			- Avec un Objet\n
+			- Par bonheur\n
+			- En apprenant une attaque\n
+			- Par échange\n\n
+			
+			Pour les pokémons par niveau, le tout se fera en utilisant plusieurs pokémons pour les faires évoluer en un seul et beau grand pokémon.\n
+			Selon la difficulté à faire évoluer le pokémons, cela demandera plus ou moins d'exemplaire de pokémons.\n
+			
+			`,  
+			ephemeral:false
 		}
 	);
 
