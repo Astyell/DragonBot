@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.0 - 13/11/2023
+ * @version 1.0.1 - 29/11/2023
  * @creation 13/11/2023 
  * @description Permet d'envoyer le message de la boutique
  */
@@ -71,11 +71,11 @@ module.exports.run = async (interaction) =>
 				}
 				else
 				{
-					db.query(`SELECT * FROM Possede WHERE Id_Objet = '${selectObjet[0].Id_Objet}';`, function (err, resultObjet, fields) 
+					db.query(`SELECT * FROM Possede WHERE Id_Objet = ${selectObjet[0].Id_Objet} AND Id_Discord = ${commanditaire.id};`, function (err, resultObjet, fields) 
 					{
 						if (err) { console.error(err); }
 
-						
+						console.log(resultObjet);
 
 						db.query(`UPDATE Utilisateur SET monnaie = monnaie - ${selectObjet[0].prix} WHERE Id_Discord = '${commanditaire.id}';`, function (err, updateMonnaie, fields) 
 						{

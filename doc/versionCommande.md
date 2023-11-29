@@ -7,6 +7,11 @@
 	Développeur : Astyell
 	Fonctionnalité : Permet de gérer la boutique.
 
+	Version : 1.0.1
+	Date : 29/11/2023
+	Développeur : Astyell
+	BugFix : Erreur d'insertion de nouvelles personnes dans la base de données
+
 ## debug.js
 
 	Version : 1.0
