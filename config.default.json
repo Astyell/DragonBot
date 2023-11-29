@@ -13,6 +13,7 @@
     "clientId": "Your_BOT_ID",
 	"guildId": "Your_Guild_ID",
     "channelLog" : "Your_Log_ChannelID",
+    "channelTest" : "Your_Test_ChannelID",
     "channelAnnonce" : "Your_Event_ChannelID",
     "channelBoutique" : "Your_Boutique_ChannelID",
     "pingRole" : "ID_Role"

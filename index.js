@@ -1,6 +1,6 @@
 /**
  * @author Kinton, Astyell
- * @version 2.0 
+ * @version 2.2.1 - 28/11/2023
  * @date 12/10/2023 
  * @description This is the main file of the application.
  */
@@ -14,6 +14,7 @@ const CONFIG = require('./config.json');
 const db = require('./lib/database/init.js');
 const { readdirSync } = require('fs');
 let commandsfile = readdirSync("./commands");
+const cron = require("node-cron")
 
 
 /* ----------------------------------------------- */
@@ -72,6 +73,11 @@ client.once('ready', c => {
     })
 
     client.user.setActivity('Pokémon HearthGold et SoulSilver !');
+
+    cron.schedule('0 19 * * *', () => 
+    {
+        pingNonJoueur()
+    });
 })
 
 // Création des commandes qui sont dans le dossier "commands"
@@ -106,3 +112,52 @@ client.on('messageCreate', message => {
 
 // Ca je sais pas ce que c'est mais ça doit être cool
 const fs = require('node:fs');
+
+
+
+function pingNonJoueur() 
+{
+    // Channel où le ping aura lieu
+    const channel = client.channels.cache.get(CONFIG.channelJeu);
+
+    // Récupération de la date du jour au format mySQL
+	let dateAjd = new Date();
+	let dateFormate = dateAjd.getFullYear() + "-";
+	(dateAjd.getMonth() + 1) < 10 ? dateFormate += "0" + (dateAjd.getMonth() + 1) : dateFormate += (dateAjd.getMonth() + 1);
+	dateFormate += "-" + dateAjd.getDate();
+
+    //Récupéré tous les joueurs n'ayant pas encore joué
+
+    let query = `SELECT Id_Discord, nom_utilisateur FROM Utilisateur u WHERE NOT EXISTS ( SELECT 1 FROM Capture c WHERE c.Id_Discord = u.Id_Discord AND c.date_capture = '${dateFormate}');`
+
+    db.query(query, function (err, resultat, fields)
+	{
+        let message = "";
+
+        resultat.forEach(element => 
+		{
+			message += `- **${element.nom_utilisateur}**\n`;
+		})
+
+
+        // Envoie du message
+
+        channel.send({content : `||<@&${CONFIG.pingRole}>||\nPetit rappel quotidien pour ceux n'ayant pas encore joué !`, 
+                      embeds   :  [
+                        {
+                        "type": "rich",
+                        "title": `Listes des dresseurs n'ayant pas encore joué !`,
+                        "description": `${message}`,
+                        "color": 0x344c72,
+                        "url": `https://www.youtube.com/watch?v=Oe3FG4EOgyU`
+                        }
+                        ]
+                    });
+        return;
+        
+    });
+
+
+    
+
+}
