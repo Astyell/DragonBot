@@ -713,6 +713,21 @@ CREATE or replace TABLE Possede
    FOREIGN KEY(Id_Objet) REFERENCES Objet(Id_Objet)
 );
 
+CREATE TABLE Vend
+(
+   Id_Vente INT(11) NOT NULL AUTO_INCREMENT,
+   Id_Vendeur VARCHAR(50) NOT NULL,
+   Id_Acheteur VARCHAR(50),
+   Id_Pokemon INT NOT NULL,
+   dateVente DATE NOT NULL,
+   prix INT(11) NOT NULL,
+   PRIMARY KEY(Id_Vente),
+   FOREIGN KEY(Id_Vendeur) REFERENCES Utilisateur(Id_Discord),
+   FOREIGN KEY(Id_Pokemon) REFERENCES Pokemon(Id_Pokemon),
+   FOREIGN KEY(Id_Acheteur) REFERENCES Utilisateur(Id_Discord)
+);
+
+
 
 --
 -- Index pour les tables déchargées
