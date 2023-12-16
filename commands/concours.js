@@ -6,7 +6,7 @@
  */
 
 const snekfetch = require('snekfetch')
-const { SlashCommandBuilder, channelLink } = require('discord.js');
+const { SlashCommandBuilder, channelLink, userMention } = require('discord.js');
 const { client, config, db } = require("../index.js");
 
 module.exports = 
@@ -148,7 +148,7 @@ module.exports.run = async (interaction) =>
 
 							snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idEaster}/`).then (captureData => 
 							{
-								interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
+								interaction.reply({content : `<@${idUser}>`, embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
 							})
 							return;
 						}
@@ -156,7 +156,7 @@ module.exports.run = async (interaction) =>
 						{
 							snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${resultat[0].id_Pokemon}/`).then (captureData => 
 							{
-								interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
+								interaction.reply({content : `<@${idUser}>`, embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
 							})
 							return;
 						}
