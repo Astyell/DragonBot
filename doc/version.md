@@ -119,7 +119,7 @@
 
 # Version 2.2.2
 
-	UPDATE DATABASE : Ajout de la table de vente
+	UPDATE DATABASE : Ajout de la table de vente + concours
 
 	### Commandes pour les utilisateurs
 

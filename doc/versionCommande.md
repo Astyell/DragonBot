@@ -12,6 +12,13 @@
 	Développeur : Astyell
 	BugFix : Erreur d'insertion de nouvelles personnes dans la base de données
 
+## Concours.js
+
+	Version : 1.0
+	Date : 16/12/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet de faire gagner des pokémons lors de concours.
+
 ## debug.js
 
 	Version : 1.0
