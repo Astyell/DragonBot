@@ -727,6 +727,37 @@ CREATE TABLE Vend
    FOREIGN KEY(Id_Acheteur) REFERENCES Utilisateur(Id_Discord)
 );
 
+CREATE TABLE `Gagne` 
+(
+  `Id_Gagne` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_Pokemon` int(11) NOT NULL,
+  `Id_Discord` varchar(50) NOT NULL,
+  `dateGagne` date NOT NULL,
+  PRIMARY KEY (`Id_Gagne`),
+  CONSTRAINT `fk_Evolution_gagne_UserID` FOREIGN KEY (`Id_Discord`) REFERENCES `Utilisateur` (`Id_Discord`),
+  CONSTRAINT `fk_Evolution_gagne_UserID` FOREIGN KEY (`Id_Pokemon`) REFERENCES `Pokemon` (`Id_Pokemon`)
+);
+
+
+DELIMITER $$
+CREATE TRIGGER `trigger_Gagner` AFTER INSERT ON `Gagne` FOR EACH ROW BEGIN
+    INSERT INTO PC (Id_Pokemon, Id_DresseurAct, Id_DresseurOri, dateCaptureEchange, estShiny) 
+    VALUES (NEW.Id_Pokemon, NEW.Id_Discord, NEW.Id_Discord, NEW.date_capture, NEW.estShiny);
+END
+$$
+DELIMITER ;
+
+ALTER TABLE `Gagne`
+  ADD PRIMARY KEY (`Id_Gagne`),
+  ADD KEY `Id_Pokemon` (`Id_Pokemon`),
+  ADD KEY `Id_Discord` (`Id_Discord`);
+
+ALTER TABLE `Gagne`
+  ADD CONSTRAINT `Capture_ibfk_1` FOREIGN KEY (`Id_Pokemon`) REFERENCES `Pokemon` (`Id_Pokemon`),
+  ADD CONSTRAINT `Capture_ibfk_2` FOREIGN KEY (`Id_Discord`) REFERENCES `Utilisateur` (`Id_Discord`);
+COMMIT;
+
+
 
 
 --

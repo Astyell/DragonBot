@@ -116,3 +116,27 @@
 
 		/debug   : Fonction permettant d'afficher un pokémon aléatoire pour tester la méthode de capture
 		/message : Envoie un message dans le channel information du bot
+
+# Version 2.2.2
+
+	UPDATE DATABASE : Ajout de la table de vente
+
+	### Commandes pour les utilisateurs
+
+		/ping                  : Renvoie Pong !
+		/pokemon               : Renvoie le pokémon capturé et l'insère dans la base de donnée
+		/pokedex               : Renvoie un simple lien vers la page internet
+		/stat                  : Permet de consulter les statistiques d'une personne
+		/echange               : Permet d'échanger deux pokemon non shiny entre deux utilisateurs
+		/doublon               : Permet d'afficher les personnes ayant des doublons
+		/info                  : Envoie les informations du pokémons
+		/evoluer               : Permet d'évoluer un pokémon
+		/suggestion_ou_debug   : Permet de suggérer ou de report un bug
+		/boutique              : Permet de gérer la boutique
+		/vendre                : Permet de vendre un pokémon
+
+
+	### Commandes pour les modérateurs
+
+		/debug   : Fonction permettant d'afficher un pokémon aléatoire pour tester la méthode de capture
+		/message : Envoie un message dans le channel information du bot

@@ -118,3 +118,10 @@
 	Date : 8/11/2023
 	Développeur : Astyell
 	Fonctionnalité : Permet d'envoyer un message dans le channel de log pour donner un avis
+
+## vendre.js
+
+	Version : 1.0
+	Date : 11/12/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet de vendre un pokémon à un autre utilisateur ou non
