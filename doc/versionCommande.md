@@ -133,6 +133,11 @@
 	Développeur : Astyell
 	Fonctionnalité : Permet de connaître les doublons que l'on a pas encore
 
+	Version : 1.1
+	Date : 20/12/2023
+	Développeur : Astyell
+	Modification : Ajout des boutons pour éviter les 4086 caractère de trop
+
 ## vendre.js
 
 	Version : 1.0

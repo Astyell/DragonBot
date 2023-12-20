@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.0 - 20/12/2023
+ * @version 1.1 - 20/12/2023
  * @creation 20/12/2023 
  * @description Envoie les doublons que l'utilisateur demandé n'a pas
  */
@@ -41,47 +41,169 @@ module.exports.create = () => {
 
 module.exports.run = async (interaction) => 
 {
-	let cible = interaction.options.getUser('utilisateur') || interaction.targetUser || interaction.user;
+	if (interaction.isCommand()) {
 
-	let requete = `SELECT U.Id_Discord, U.nom_utilisateur, PC.Id_Pokemon, P.nom_Pokemon FROM Utilisateur U JOIN PC ON U.Id_Discord = PC.Id_DresseurAct JOIN Pokemon P ON PC.Id_Pokemon = P.Id_Pokemon  JOIN ( SELECT Id_Pokemon, Id_DresseurAct, COUNT(*) AS occurrences FROM PC GROUP BY Id_Pokemon, Id_DresseurAct HAVING COUNT(*) > 1 ) AS PokemonOccurrence ON PC.Id_Pokemon = PokemonOccurrence.Id_Pokemon AND U.Id_Discord = PokemonOccurrence.Id_DresseurAct WHERE U.Id_Discord != ${cible.id} AND NOT EXISTS ( SELECT 1 FROM PC AS PC2 WHERE PC2.Id_Pokemon = PC.Id_Pokemon AND PC2.Id_DresseurAct = ${cible.id} );`;
+		let cible = interaction.options.getUser('utilisateur') || interaction.targetUser || interaction.user;
+		let requete = `SELECT DISTINCT U.Id_Discord, U.nom_utilisateur, PC.Id_Pokemon, P.nom_Pokemon FROM Utilisateur U JOIN PC ON U.Id_Discord = PC.Id_DresseurAct JOIN Pokemon P ON PC.Id_Pokemon = P.Id_Pokemon  JOIN ( SELECT Id_Pokemon, Id_DresseurAct, COUNT(*) AS occurrences FROM PC GROUP BY Id_Pokemon, Id_DresseurAct HAVING COUNT(*) > 1 ) AS PokemonOccurrence ON PC.Id_Pokemon = PokemonOccurrence.Id_Pokemon AND U.Id_Discord = PokemonOccurrence.Id_DresseurAct WHERE U.Id_Discord != ${cible.id} AND NOT EXISTS ( SELECT 1 FROM PC AS PC2 WHERE PC2.Id_Pokemon = PC.Id_Pokemon AND PC2.Id_DresseurAct = ${cible.id} );`;
 
-	db.query(requete, function (err, result, fields) 
-	{
-		if (err) { console.error(err); }
-
-		console.log(result);
-
-		if (result.length >= 1)
+		db.query(requete, function (err, result, fields) 
 		{
-			let message = "";
+			if (err) { console.error(err); }
 
-			result.forEach(element => 
+			//console.log(result);
+
+			if (result.length >= 1)
 			{
-				message += `- **${element.nom_utilisateur}** possède plusieurs ${element.nom_Pokemon} (ID : **__${element.Id_Pokemon}__**).\n`;
-			});
-		
-			interaction.reply
-			({
-				content: 'Cela pourrait peut-être vous intéresser !',
-				embeds:
+				let message = "";
+
+				let min = 0;
+				let max = 20;
+
+				for (let i = min; i < max && i < result.length; i++)
+				{
+					console.log(result[i]);
+					message += `- **${result[i].nom_utilisateur}** possède plusieurs ${result[i].nom_Pokemon} (ID : **__${result[i].Id_Pokemon}__**).\n`;
+				}
+
+				interaction.reply
+				({
+					content: 'Cela pourrait peut-être vous intéresser !',
+					embeds:
+						[
+							{
+								"type": "rich",
+								"title": `Listes des doublons que ${cible.username} n'a pas encore ! `,
+								"description": `${message}`,
+								"color": 0x87A6FF
+							}
+						],
+					components: 
 					[
-						{
-							"type": "rich",
-							"title": `Listes des doublons que ${cible.username} n'a pas encore ! `,
-							"description": `${message}`,
-							"color": 0x87A6FF
-						}
+							{
+							"type": 1,
+							"components": [
+								{
+								"style": 4,
+								"label": `Précédent `,
+								"custom_id": `theorycraft_${cible.id}_${min-20}_${max-20}`,
+								"disabled": false,
+								"emoji": {
+									"id": null,
+									"name": `⬅`
+								},
+								"type": 2
+								},
+								{
+								"style": 3,
+								"label": `Suivant`,
+								"custom_id": `theorycraft_${cible.id}_${min+20}_${max+20}`,
+								"disabled": false,
+								"emoji": {
+									"id": null,
+									"name": `➡`
+								},
+								"type": 2
+								}
+							]
+							}
 					]
-			});
+				});
 
-			return;
-
-			}
-			else
-			{
-				interaction.reply({content: `Il n'y a pas de doublons intéressant pour ${cible.username} pour le moment !`, ephemeral : false});
 				return;
-			}
-	});
+
+				}
+				else
+				{
+					interaction.reply({content: `Il n'y a pas de doublons intéressant pour ${cible.username} pour le moment !`, ephemeral : false});
+					return;
+				}
+		});
+	}
+	if (interaction.isButton()) 
+	{
+		let ensArgs = interaction.customId.split("_");
+
+		let cibleID = ensArgs[1];
+		let min     = ensArgs[2] <=  0 ?  0 : ensArgs[2];
+		let max     = ensArgs[3] <= 20 ? 20 : ensArgs[3];
+
+		console.log("min : " + min + " max : " + max);
+
+		client.users.fetch(cibleID, { force: true }).then(user => 
+		{	
+			let requete = `SELECT DISTINCT U.Id_Discord, U.nom_utilisateur, PC.Id_Pokemon, P.nom_Pokemon FROM Utilisateur U JOIN PC ON U.Id_Discord = PC.Id_DresseurAct JOIN Pokemon P ON PC.Id_Pokemon = P.Id_Pokemon  JOIN ( SELECT Id_Pokemon, Id_DresseurAct, COUNT(*) AS occurrences FROM PC GROUP BY Id_Pokemon, Id_DresseurAct HAVING COUNT(*) > 1 ) AS PokemonOccurrence ON PC.Id_Pokemon = PokemonOccurrence.Id_Pokemon AND U.Id_Discord = PokemonOccurrence.Id_DresseurAct WHERE U.Id_Discord != ${user.id} AND NOT EXISTS ( SELECT 1 FROM PC AS PC2 WHERE PC2.Id_Pokemon = PC.Id_Pokemon AND PC2.Id_DresseurAct = ${user.id} );`;
+			
+			db.query(requete, function (err, result, fields) 
+			{
+				if (err) { console.error(err); }
+
+				//console.log(result);
+
+				if (result.length >= 1)
+				{
+					let message = "";
+
+					console.log("result taille : " + result.length)
+
+					for (let i = min; i < max && i < result.length; i++)
+					{
+						message += `- **${result[i].nom_utilisateur}** possède plusieurs ${result[i].nom_Pokemon} (ID : **__${result[i].Id_Pokemon}__**).\n`;
+					}
+
+					interaction.update 
+					({
+						content: 'Cela pourrait peut-être vous intéresser !',
+						embeds:
+							[
+								{
+									"type": "rich",
+									"title": `Listes des doublons que ${user.username} n'a pas encore ! `,
+									"description": `${message}`,
+									"color": 0x87A6FF
+								}
+							],
+						components: 
+						[
+								{
+								"type": 1,
+								"components": [
+									{
+									"style": 4,
+									"label": `Précédent `,
+									"custom_id": `theorycraft_${user.id}_${min-20}_${max-20}`,
+									"disabled": false,
+									"emoji": {
+										"id": null,
+										"name": `⬅`
+									},
+									"type": 2
+									},
+									{
+									"style": 3,
+									"label": `Suivant`,
+									"custom_id": `theorycraft_${user.id}_${min+20}_${max+20}`,
+									"disabled": false,
+									"emoji": {
+										"id": null,
+										"name": `➡`
+									},
+									"type": 2
+									}
+								]
+								}
+						]
+					});
+
+					return;
+				}
+				else
+				{
+					interaction.reply({content: `Il n'y a pas de doublons intéressant pour ${cible.username} pour le moment !`, ephemeral : false});
+					return;
+				}
+			});
+		});
+
+	}
 
 }
