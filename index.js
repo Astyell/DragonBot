@@ -149,15 +149,12 @@ function pingNonJoueur()
                         "title": `Listes des dresseurs n'ayant pas encore joué !`,
                         "description": `${message}`,
                         "color": 0x344c72,
-                        "url": `https://www.youtube.com/watch?v=Oe3FG4EOgyU`
+                        "url": `https://m104.ovh/Dragonbot/Hmmmmm.html`
                         }
                         ]
                     });
         return;
         
     });
-
-
-    
 
 }
