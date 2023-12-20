@@ -126,6 +126,13 @@
 	Développeur : Astyell
 	Fonctionnalité : Permet d'envoyer un message dans le channel de log pour donner un avis
 
+## theorycraft.js
+
+	Version : 1.0
+	Date : 20/12/2023
+	Développeur : Astyell
+	Fonctionnalité : Permet de connaître les doublons que l'on a pas encore
+
 ## vendre.js
 
 	Version : 1.0
