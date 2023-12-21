@@ -138,6 +138,11 @@
 	Développeur : Astyell
 	Modification : Ajout des boutons pour éviter les 4086 caractère de trop
 
+	Version : 1.1.1
+	Date : 21/12/2023
+	Développeur : Astyell
+	Modification : Fix des boutons
+
 ## vendre.js
 
 	Version : 1.0

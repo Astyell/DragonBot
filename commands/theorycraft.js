@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.1 - 20/12/2023
+ * @version 1.1.1 - 21/12/2023
  * @creation 20/12/2023 
  * @description Envoie les doublons que l'utilisateur demandé n'a pas
  */
@@ -124,8 +124,8 @@ module.exports.run = async (interaction) =>
 		let ensArgs = interaction.customId.split("_");
 
 		let cibleID = ensArgs[1];
-		let min     = ensArgs[2] <=  0 ?  0 : ensArgs[2];
-		let max     = ensArgs[3] <= 20 ? 20 : ensArgs[3];
+		let min     = ensArgs[2] <=  0 ?  0 : parseInt(ensArgs[2]);
+		let max     = ensArgs[3] <= 20 ? 20 : parseInt(ensArgs[3]);
 
 		console.log("min : " + min + " max : " + max);
 
@@ -150,6 +150,11 @@ module.exports.run = async (interaction) =>
 						message += `- **${result[i].nom_utilisateur}** possède plusieurs ${result[i].nom_Pokemon} (ID : **__${result[i].Id_Pokemon}__**).\n`;
 					}
 
+					let minSui = min + 20;
+					let maxSui = max + 20;
+					let minPre = min - 20;
+					let maxPre = min - 20;
+
 					interaction.update 
 					({
 						content: 'Cela pourrait peut-être vous intéresser !',
@@ -170,7 +175,7 @@ module.exports.run = async (interaction) =>
 									{
 									"style": 4,
 									"label": `Précédent `,
-									"custom_id": `theorycraft_${user.id}_${min-20}_${max-20}`,
+									"custom_id": `theorycraft_${user.id}_${minPre}_${maxPre}`,
 									"disabled": false,
 									"emoji": {
 										"id": null,
@@ -181,7 +186,7 @@ module.exports.run = async (interaction) =>
 									{
 									"style": 3,
 									"label": `Suivant`,
-									"custom_id": `theorycraft_${user.id}_${min+20}_${max+20}`,
+									"custom_id": `theorycraft_${user.id}_${minSui}_${maxSui}`,
 									"disabled": false,
 									"emoji": {
 										"id": null,

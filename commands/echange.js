@@ -279,7 +279,7 @@ function genererEmbedRefus(cible, PokemonE, PokemonR) {
 				"type": "rich",
 				"title": `${cible} a refusé ta demande d'échange de ton ${PokemonE} contre son ${PokemonR}!`,
 				"description": `Tant pis, une autre fois peut-être !`,
-				"color": 0x013654
+				"color": 0xDB4B48
 			}
 		];
 
@@ -294,7 +294,7 @@ function genererEmbedOui(cible, PokemonE, PokemonR) {
 				"type": "rich",
 				"title": `${cible} a accepté ta demande d'échange de ton ${PokemonE} contre son ${PokemonR}!`,
 				"description": `N'hésites pas à utiliser la commande /stat ou à aller voir sur le site : https://m104.ovh/Dragonbot/`,
-				"color": 0x013654
+				"color": 0xA9DB42
 			}
 		];
 
