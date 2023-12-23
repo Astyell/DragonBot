@@ -19,6 +19,12 @@
 	Développeur : Astyell
 	Fonctionnalité : Permet de faire gagner des pokémons lors de concours.
 
+
+	Version : 1.0.1
+	Date : 23/12/2023
+	Développeur : Astyell
+	Ajout : Permet de faire gagner des pokémons précis lors de concours.
+
 ## debug.js
 
 	Version : 1.0

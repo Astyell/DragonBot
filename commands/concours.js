@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.1.2 - 16/11/2023
+ * @version 1.0.1 - 23/11/2023
  * @creation 16/10/2023 
  * @description Permet de capturer un pokémon pour quelqu'un qui a gagné un concours
  */
@@ -117,6 +117,8 @@ module.exports.run = async (interaction) =>
 		{
 			let pokemon = result[Math.floor(Math.random() * nbPokemon )].nom_Pokemon;
 			console.log(pokemon);
+
+			//pokemon = "Porygon"; //Si besoin de donner un pokémon particulier
 
 			db.query(`SELECT id_Pokemon, nom_Pokemon FROM Pokemon WHERE nom_Pokemon = '${pokemon}'`, function (err, resultat, fields) 
 			{
