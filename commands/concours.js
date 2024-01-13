@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.0.1 - 23/11/2023
+ * @version 1.0.2 - 14/01/2023
  * @creation 16/10/2023 
  * @description Permet de capturer un pokémon pour quelqu'un qui a gagné un concours
  */
@@ -118,7 +118,7 @@ module.exports.run = async (interaction) =>
 			let pokemon = result[Math.floor(Math.random() * nbPokemon )].nom_Pokemon;
 			console.log(pokemon);
 
-			//pokemon = "Porygon"; //Si besoin de donner un pokémon particulier
+			pokemon = "M. Mime"; //Si besoin de donner un pokémon particulier
 
 			db.query(`SELECT id_Pokemon, nom_Pokemon FROM Pokemon WHERE nom_Pokemon = '${pokemon}'`, function (err, resultat, fields) 
 			{
@@ -189,13 +189,13 @@ function genererEmbed (nomUser, nom_Pokemon, Shiny, tauxCapture, id_Pokemon, cap
 	let isShiny;
 	Shiny == 1 ? isShiny = "Oui" : isShiny = "Non";
 
-	
+	let nomPokemonURL = nom_Pokemon.replace(" ", "_");
 
 	embed = 
 	[{
 		"type": "rich",
 		"title": `Félictations ${nomUser} tu as gagné un ${nom_Pokemon} (N°${id_Pokemon}) !`,
-		"url": `https://www.pokepedia.fr/${nom_Pokemon}`,
+		"url": `https://www.pokepedia.fr/${nomPokemonURL}`,
 		"description": "",
 		"color": 0x1b5280,
 		"fields": 

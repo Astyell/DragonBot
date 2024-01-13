@@ -25,6 +25,11 @@
 	Développeur : Astyell
 	Ajout : Permet de faire gagner des pokémons précis lors de concours.
 
+	Version : 1.0.2
+	Date : 14/01/2023
+	Développeur : Astyell
+	Bug Fix : Correction pour M. Mime
+
 ## debug.js
 
 	Version : 1.0
@@ -112,6 +117,11 @@
 	Date : 06/11/2023
 	Développeur : Astyell
 	Easter-egg : Ajout d'un easter egg concernant le pokémon 132.
+
+	Version : 1.1.3
+	Date : 14/01/2023
+	Développeur : Astyell
+	Bug Fix : Correction pour M. Mime
 
 ## stat.js
 
