@@ -1,6 +1,6 @@
 /**
  * @author Astyell, Kinton
- * @version 1.0 - 13/11/2023
+ * @version 1.0.1 - 06/01/2023
  * @creation 18/10/2023 
  * @description Permet de faire un échange de deux pokémons entre deux utilisateurs
  */
@@ -183,10 +183,12 @@ module.exports.run = async (interaction) => {
 				})
 			})
 			
-			// console.log("==================================================================================")
-			// console.log(cibleID)
-			// console.log(commanditaireID)
-			// console.log("==================================================================================")
+			//console.log("==================================================================================")
+			//console.log(cibleID)
+			//console.log(commanditaireID)
+			//console.log("==================================================================================")
+
+
 			db.query(`SELECT * FROM PC WHERE Id_DresseurAct = ${cibleID} AND id_Pokemon = ${pkmcibleID} AND estShiny = 0;`, function (err, resultPKMCible, fields) 
 			{
 				if (err) { console.error(err); }
@@ -338,7 +340,7 @@ function genererButtonReponse() {
 					{
 						"style": 4,
 						"label": `Refuser l'échange`,
-						"custom_id": `echange_refuser_`,
+						"custom_id": `echange_refuser`,
 						"disabled": true,
 						"emoji": {
 							"id": `870271800758632539`,
@@ -354,7 +356,10 @@ function genererButtonReponse() {
 	return components;
 }
 
-function genererBouton(commanditaireID, commanditaireName, cibleID, cibleName, pokemonEchangeID, pokemonEchangeName, pokemonRecuID, pokemonRecuName) {
+function genererBouton(commanditaireID, commanditaireName, cibleID, cibleName, pokemonEchangeID, pokemonEchangeName, pokemonRecuID, pokemonRecuName) 
+{
+	commanditaireName = commanditaireName.replace("_", "");
+
 	let components =
 		[
 			{

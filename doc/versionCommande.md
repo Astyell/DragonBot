@@ -54,12 +54,22 @@
 	Développeur : Astyell
 	Modifications : Option de Recherche par utilisateur et par pokémons, proposé par morasuke.
 
+	Version : 2.0.1
+	Date : 31/01/2023
+	Développeur : Astyell
+	BugFix : Boutons suivants et précédant.
+
 ## echange.js
 
 	Version : 1.0
 	Date : 23/10/2023
 	Développeur : Astyell, kinton_hiryuu
 	Fonctionnalité : Permet l'échange de pokémons entre deux personnes.
+
+	Version : 1.0.1
+	Date : 06/01/2023
+	Développeur : Astyell
+	BugFix : Problème de pseudo avec _
 
 ## echange.js
 
