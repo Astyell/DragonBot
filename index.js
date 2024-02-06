@@ -14,6 +14,7 @@ const CONFIG = require('./config.json');
 const db = require('./lib/database/init.js');
 const { readdirSync } = require('fs');
 let commandsfile = readdirSync("./commands");
+let commandsfileRP = readdirSync("./commandRP");
 const cron = require("node-cron")
 
 
@@ -33,6 +34,14 @@ commandsfile.forEach(files =>
     delete require.cache[require.resolve(`./commands/${files}`)]
 });
 commandsfile = readdirSync("./commands")
+
+commandsfileRP.forEach(files => 
+{ 
+    partials.push(require(`./commandRP/${files}`)?.partials)
+    intents.push(require(`./commandRP/${files}`)?.intents)
+    delete require.cache[require.resolve(`./commandRP/${files}`)]
+});
+commandsfileRP = readdirSync("./commandRP")
 
 /* On définit toutes les informations que l'on veut récupérer de discord */
 
@@ -67,8 +76,15 @@ module.exports = { discordClient: client, client, db, config: CONFIG }
 client.once('ready', c => {
     console.log(`${Date(Date.now()).toLocaleString('fr-FR')} | ${client.user.username} | ${client.guilds.cache.size} guilds`)
     console.log(`wesh`)
-    commandsfile.forEach(files => {
+    commandsfile.forEach(files => 
+    {
         require(`./commands/${files}`)?.create()
+        console.log(`commande ${files} créée`)
+    })
+
+    commandsfileRP.forEach(files => 
+    {
+        require(`./commandRP/${files}`)?.create()
         console.log(`commande ${files} créée`)
     })
 
@@ -81,19 +97,31 @@ client.once('ready', c => {
 })
 
 // Création des commandes qui sont dans le dossier "commands"
-client.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async (interaction) => 
+{
     //console.log(interaction.customId.split("_"))
-    if (interaction.isCommand() || interaction.isContextMenuCommand()) {
+    if (interaction.isCommand() || interaction.isContextMenuCommand()) 
+    {
         // console.log(interaction?.command?.name); console.log(interaction?.commandName);
-        require('./commands/' + interaction.commandName).run(interaction)
+        try 
+        {
+            require('./commands/' + interaction.commandName).run(interaction)
+        } 
+        catch (error) 
+        {
+            require('./commandRP/' + interaction.commandName).run(interaction)
+        }
+        
     }
-    if (interaction.isButton() || interaction.isStringSelectMenu() || interaction.isModalSubmit()) {
+    if (interaction.isButton() || interaction.isStringSelectMenu() || interaction.isModalSubmit()) 
+    {
         require('./commands/' + interaction.customId.split("_")[0]).run(interaction)
     }
 })
 
 // Vérification des DMs du bot pour éviter de le faire planter
-client.on('messageCreate', message => {
+client.on('messageCreate', message => 
+{
     //message.content = 'say bonjour comment va tu ?'
 
     if (message.author.bot) return;
