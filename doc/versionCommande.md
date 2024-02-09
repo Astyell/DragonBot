@@ -104,12 +104,17 @@
 	Développeur : Astyell
 	Fonctionnalité : Réponds "Pong", permet de vérifier le bon fonctionnements des commandes et du retour du Bot discord.
 
-## pokedex.js
+## pc.js
 
 	Version : 1.0
 	Date : 15/10/2023
 	Développeur : Astyell
 	Fonctionnalité : Envoie un message pour accéder au site WEB.
+
+	Version : 1.0.1
+	Date : 09/02/2024
+	Développeur : Astyell
+	Modification : Changement du nom de la commande de pokedex à pc, proposé par noli.
 
 ## pokemon.js
 
