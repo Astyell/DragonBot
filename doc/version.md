@@ -143,13 +143,13 @@
 
 # Version 2.2.3
 
-	UPDATE DATABASE : Ajout de la table de vente + concours
+	UPDATE DATABASE : AJOUT de TOUTE la deuxième génération et des modification qu'elle apporte
 
 	### Commandes pour les utilisateurs
 
 		/ping                  : Renvoie Pong !
 		/pokemon               : Renvoie le pokémon capturé et l'insère dans la base de donnée
-		/pokedex               : Renvoie un simple lien vers la page internet
+		/pc                    : Renvoie un simple lien vers la page internet
 		/stat                  : Permet de consulter les statistiques d'une personne
 		/echange               : Permet d'échanger deux pokemon non shiny entre deux utilisateurs
 		/doublon               : Permet d'afficher les personnes ayant des doublons

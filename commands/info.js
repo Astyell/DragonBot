@@ -175,7 +175,7 @@ function genererEmbed (pokemonID, nomPokemon, estLegendaire, estFabuleux, tauxCa
 	{
 		messageEvolution += `${nomPokemon} peut evoluer en **${element.nom_Pokemon}** (Par **${element.nom_Type_Evolution.replace("_", ' ')}**)\n`;
 
-		if (element.Id_Type_Evolution == 1 ) { messageEvolution += "\n (Nombre de pokémon nécessaire(s) : " + (element.stade_Evolution + 1) + ")";}
+		if (element.Id_Type_Evolution == 1 ) { messageEvolution += "\n (Nombre de pokémon nécessaire(s) : " + (element.stade_Evolution + 1) + ")\n\n";}
 	});
 
 	//console.log ("MESSAGE : " + messageEvolution);

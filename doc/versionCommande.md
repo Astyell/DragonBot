@@ -12,6 +12,11 @@
 	Développeur : Astyell
 	BugFix : Erreur d'insertion de nouvelles personnes dans la base de données
 
+	Version : 1.1.0
+	Date : 09/02/2024
+	Développeur : Astyell
+	Ajout : Objet de la seconde génération
+
 ## Concours.js
 
 	Version : 1.0

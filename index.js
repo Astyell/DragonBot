@@ -68,7 +68,7 @@ module.exports = { discordClient: client, client, db, config: CONFIG }
 
 // const rest = new REST().setToken(CONFIG.token);
 
-// rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1171836096645177376'))
+// rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1161925566270820412'))
 // 	.then(() => console.log('Successfully deleted guild command'))
 // 	.catch(console.error);
 

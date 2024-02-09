@@ -1,6 +1,6 @@
 /**
  * @author Astyell
- * @version 1.0.1 - 29/11/2023
+ * @version 1.1.0 - 09/02/2024
  * @creation 13/11/2023 
  * @description Permet d'envoyer le message de la boutique
  */
@@ -27,7 +27,7 @@ module.exports.run = async (interaction) =>
 {
 	if (interaction.isCommand()) 
 	{
-		const channel = client.channels.cache.get(config.channelBoutique);
+		const channel = client.channels.cache.get(config.channelTest);
 
 		db.query(`SELECT * FROM Objet`, function (err, resultat, fields) 
 		{
@@ -48,7 +48,16 @@ module.exports.run = async (interaction) =>
 		const channelLog = client.channels.cache.get(config.channelLog);
 		let commanditaire = interaction.user;
 		let ensArgs = interaction.customId.split("_");
-		let objet = ensArgs[1] + " " + ensArgs[2];
+		let objet;
+
+		if (ensArgs[2] == null)
+		{
+			objet = ensArgs[1];
+		}
+		else
+		{
+			objet = ensArgs[1] + " " + ensArgs[2];
+		}
 
 		console.log(objet);
 
@@ -231,20 +240,98 @@ function genererButton ()
     {
       "type": 1,
       "components": [
-        {
-          "style": 2,
-          "label": `Cable Link`,
-          "custom_id": `boutique_Cable_Link`,
-          "disabled": false,
-          "emoji": {
-            "id": `1173607528563748934`,
-            "name": `Cable_Link`,
-            "animated": false
-          },
-          "type": 2
-        }
+		{
+			"style": 2,
+			"label": `Pierre Soleil`,
+			"custom_id": `boutique_Pierre_Soleil`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1205524832838615170`,
+			  "name": `Pierre_Soleil`,
+			  "animated": false
+			},
+			"type": 2
+		},
+		{
+			"style": 2,
+			"label": `Cable Link`,
+			"custom_id": `boutique_Cable_Link`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1173607528563748934`,
+			  "name": `Cable_Link`,
+			  "animated": false
+			},
+			"type": 2
+		},
+		{
+			"style": 2,
+			"label": `Noeud Destin`,
+			"custom_id": `boutique_Noeud_Destin`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1205539093832794122`,
+			  "name": `Noeud_Destin`,
+			  "animated": false
+			},
+			"type": 2
+		},
+		{
+			"style": 2,
+			"label": `Roche Royale`,
+			"custom_id": `boutique_Roche_Royale`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1205524852916748308`,
+			  "name": `Roche_Royale`,
+			  "animated": false
+			},
+			"type": 2
+		},
+		{
+			"style": 2,
+			"label": `Peau Metal`,
+			"custom_id": `boutique_Peau_Metal`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1205524804409499708`,
+			  "name": `Peau_Metal`,
+			  "animated": false
+			},
+			"type": 2
+		}
       ]
-    }
+    },
+	{
+		"type": 1,
+		"components": [
+		  {
+			"style": 2,
+			"label": `Ameliorator`,
+			"custom_id": `boutique_Ameliorator`,
+			"disabled": false,
+			"emoji": {
+			  "id": `1205524765729619998`,
+			  "name": `Ameliorator`,
+			  "animated": false
+			},
+			"type": 2
+		  },
+		  {
+			  "style": 2,
+			  "label": `Ecaille Draco`,
+			  "custom_id": `boutique_Ecaille_Draco`,
+			  "disabled": false,
+			  "emoji": {
+				"id": `1205524719542079538`,
+				"name": `Ecaille_Draco`,
+				"animated": false
+			  },
+			  "type": 2
+		  }
+		]
+	  }
+	
   ]
 
   return button;

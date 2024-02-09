@@ -33,12 +33,10 @@ module.exports.run = async (interaction) =>
 	else
 	{
 			//Récupère le random
-			//let random = Math.floor(Math.random() * 100 );
+			let random = Math.floor(Math.random() * 100 );
 			let tauxCapture = -1;
 
 			//console.log(random);
-
-			let random = 0;
 			
 			if      (random <  40)                { tauxCapture = 40; } 
 			else if (random >= 40 && random < 70) { tauxCapture = 30; } 
@@ -48,7 +46,7 @@ module.exports.run = async (interaction) =>
 			else if (random >= 98)                { tauxCapture  = 2; } 
 			else                                  { tauxCapture = -1; }
 
-			tauxCapture = 5;
+			//tauxCapture = 30;
 
 			db.query(`SELECT nom_Pokemon FROM Pokemon WHERE tauxCapture = ${tauxCapture}`, function (err, result, fields) 
 			{
