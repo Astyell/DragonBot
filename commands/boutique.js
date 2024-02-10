@@ -27,7 +27,7 @@ module.exports.run = async (interaction) =>
 {
 	if (interaction.isCommand()) 
 	{
-		const channel = client.channels.cache.get(config.channelTest);
+		const channel = client.channels.cache.get(config.channelBoutique);
 
 		db.query(`SELECT * FROM Objet`, function (err, resultat, fields) 
 		{

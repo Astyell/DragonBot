@@ -97,7 +97,7 @@ module.exports.run = async (interaction) =>
 
 					if (resultatEvolution.length <= 0)
 					{
-						interaction.editReply({ content: "Erreur, ce pokémon ne peut pas évoluer (seul la première génération a été mise en place)."});
+						interaction.editReply({ content: "Erreur, ce pokémon ne peut pas évoluer (seul la première génération & deuxième génération ont été mises en place)."});
 						return;
 					}
 					if (resultatEvolution.length > 1)

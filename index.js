@@ -88,7 +88,7 @@ client.once('ready', c => {
         console.log(`commande ${files} créée`)
     })
 
-    client.user.setActivity('Pokémon HearthGold et SoulSilver !');
+    client.user.setActivity('Pokémon Rubis Oméga et Saphir Alpha !');
 
     cron.schedule('0 19 * * *', () => 
     {

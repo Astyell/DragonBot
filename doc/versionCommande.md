@@ -181,7 +181,7 @@
 
 ## vendre.js
 
-	Version : 1.0
-	Date : 11/12/2023
+	Version : 1.0.0
+	Date : 10/02/2024
 	Développeur : Astyell
-	Fonctionnalité : Permet de vendre un pokémon à un autre utilisateur ou non
+	Fonctionnalité : Permet de vendre un pokémon 
