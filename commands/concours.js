@@ -118,7 +118,7 @@ module.exports.run = async (interaction) =>
 			let pokemon = result[Math.floor(Math.random() * nbPokemon )].nom_Pokemon;
 			console.log(pokemon);
 
-			pokemon = "M. Mime"; //Si besoin de donner un pokémon particulier
+			//pokemon = "M. Mime"; //Si besoin de donner un pokémon particulier
 
 			db.query(`SELECT id_Pokemon, nom_Pokemon FROM Pokemon WHERE nom_Pokemon = '${pokemon}'`, function (err, resultat, fields) 
 			{

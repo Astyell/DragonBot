@@ -139,6 +139,8 @@ module.exports.run = async (interaction) =>
 								{
 									idEaster = Math.floor(Math.random() * 151);
 
+									console.log("easteregg");
+
 									snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idEaster}/`).then (captureData => 
 									{
 									interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
@@ -147,7 +149,7 @@ module.exports.run = async (interaction) =>
 								}
 								else
 								{
-									snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${resultat[0].id_Pokemon}/`).then (captureData => 
+									snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${resultat[0].id_Pokemon}/`).then (captureData =>
 									{
 									interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
 									})

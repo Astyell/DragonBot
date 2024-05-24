@@ -28,7 +28,7 @@ const ACHSPE = ["Professeur Chen"          , "Chef de la team rocket Giovanni", 
 const ACHTITRE = ["Dresseur / Dresseuse", "Gamin / Filette"    , "Montagnard(e)"             , "Marin(ette)", "Pêcheur / Pêcheuse", "Ranger", "Éleveur / Éleveuse", "Journaliste", 
                   "Pokéfan"             , "Écolier / Écolière" , "TopDresseur / TopDresseuse", "Star"       , "Nomade"            , "Expert(e)"                   , "Clown"      ];
 
-const ACHNOM = ["Robert", "Farouk", "Sylvie", "Eric", "Manami", "Lorenzo", "Masuda", "Erin", "Kyle", "Julien", "Clara", "Frack", "Gérald", "Alex", "Lylia", "Jay", "Marcel",
+const ACHNOM = ["Robert", "Farouk", "Sylvie", "Eric", "Manami", "Lorenzo", "Masuda", "Erin", "Kyle", "Julien", "Clara", "Franck", "Gérald", "Alex", "Lylia", "Jay", "Marcel",
                 "Philippe", "Ricky", "Charlotte", "Achille", "Dixie", "Eve", "Lynn", "Carla", "Abdel", "Raymond", "Trystan", "Stéphane", "Émilie", "Ava", "Aya"];
 
 module.exports = {

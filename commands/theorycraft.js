@@ -59,9 +59,11 @@ module.exports.run = async (interaction) =>
 				let min = 0;
 				let max = 20;
 
+				let nbPageMax = Math.ceil(result.length / 20);
+
 				for (let i = min; i < max && i < result.length; i++)
 				{
-					console.log(result[i]);
+					//console.log(result[i]);
 					message += `- **${result[i].nom_utilisateur}** possède plusieurs ${result[i].nom_Pokemon} (ID : **__${result[i].Id_Pokemon}__**).\n`;
 				}
 
@@ -74,7 +76,11 @@ module.exports.run = async (interaction) =>
 								"type": "rich",
 								"title": `Listes des doublons que ${cible.username} n'a pas encore ! `,
 								"description": `${message}`,
-								"color": 0x87A6FF
+								"color": 0x87A6FF,
+								"footer": 
+								{
+									"text": `Page 1/${nbPageMax}`
+								}
 							}
 						],
 					components: 
@@ -85,7 +91,7 @@ module.exports.run = async (interaction) =>
 								{
 								"style": 4,
 								"label": `Précédent `,
-								"custom_id": `theorycraft_${cible.id}_${min-20}_${max-20}`,
+								"custom_id": `theorycraft_${cible.id}_${min-20}_${max-20}_1_${nbPageMax}`,
 								"disabled": false,
 								"emoji": {
 									"id": null,
@@ -96,7 +102,7 @@ module.exports.run = async (interaction) =>
 								{
 								"style": 3,
 								"label": `Suivant`,
-								"custom_id": `theorycraft_${cible.id}_${min+20}_${max+20}`,
+								"custom_id": `theorycraft_${cible.id}_${min+20}_${max+20}_2_${nbPageMax}`,
 								"disabled": false,
 								"emoji": {
 									"id": null,
@@ -126,6 +132,10 @@ module.exports.run = async (interaction) =>
 		let cibleID = ensArgs[1];
 		let min     = ensArgs[2] <=  0 ?  0 : parseInt(ensArgs[2]);
 		let max     = ensArgs[3] <= 20 ? 20 : parseInt(ensArgs[3]);
+
+		let pageAct = ensArgs[4] >= ensArgs[5] ? ensArgs[5] : parseInt(ensArgs[4]);
+		let pageMax = ensArgs[5];
+		
 
 		console.log("min : " + min + " max : " + max);
 
@@ -164,7 +174,11 @@ module.exports.run = async (interaction) =>
 									"type": "rich",
 									"title": `Listes des doublons que ${user.username} n'a pas encore ! `,
 									"description": `${message}`,
-									"color": 0x87A6FF
+									"color": 0x87A6FF,
+									"footer":
+									{
+										"text": `Page ${pageAct}/${pageMax}`
+									}
 								}
 							],
 						components: 
@@ -175,7 +189,7 @@ module.exports.run = async (interaction) =>
 									{
 									"style": 4,
 									"label": `Précédent `,
-									"custom_id": `theorycraft_${user.id}_${minPre}_${maxPre}`,
+									"custom_id": `theorycraft_${user.id}_${minPre}_${maxPre}_${pageAct-1}_${pageMax}`,
 									"disabled": false,
 									"emoji": {
 										"id": null,
@@ -186,7 +200,7 @@ module.exports.run = async (interaction) =>
 									{
 									"style": 3,
 									"label": `Suivant`,
-									"custom_id": `theorycraft_${user.id}_${minSui}_${maxSui}`,
+									"custom_id": `theorycraft_${user.id}_${minSui}_${maxSui}_${pageAct+1}_${pageMax}`,
 									"disabled": false,
 									"emoji": {
 										"id": null,
