@@ -137,7 +137,7 @@ module.exports.run = async (interaction) =>
 
 								if (resultat[0].id_Pokemon == 132 || resultat[0].id_Pokemon == 570 || resultat[0].id_Pokemon == 571 ) 
 								{
-									idEaster = Math.floor(Math.random() * 151);
+									idEaster = Math.floor(Math.random() * 1025);
 
 									console.log("easteregg");
 

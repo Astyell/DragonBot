@@ -757,6 +757,37 @@ ALTER TABLE `Gagne`
   ADD CONSTRAINT `Capture_ibfk_2` FOREIGN KEY (`Id_Discord`) REFERENCES `Utilisateur` (`Id_Discord`);
 COMMIT;
 
+CREATE TABLE `Chasse` 
+(
+  `Id_Chasse` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_Pokemon` int(11) NOT NULL,
+  `Id_Discord` varchar(50) NOT NULL,
+  `dateChasse` date NOT NULL,
+  `estShiny` tinyint(1) NOT NULL,
+
+  PRIMARY KEY (`Id_Chasse`),
+  CONSTRAINT `fk_Evolution_chasse_UserID` FOREIGN KEY (`Id_Discord`) REFERENCES `Utilisateur` (`Id_Discord`),
+  CONSTRAINT `fk_Evolution_chasse_PkmnID` FOREIGN KEY (`Id_Pokemon`) REFERENCES `Pokemon` (`Id_Pokemon`)
+);
+
+
+DELIMITER $$
+CREATE TRIGGER `trigger_Chasser` AFTER INSERT ON `Chasse` FOR EACH ROW BEGIN
+    INSERT INTO PC (Id_Pokemon, Id_DresseurAct, Id_DresseurOri, dateCaptureEchange, estShiny) 
+    VALUES (NEW.Id_Pokemon, NEW.Id_Discord, NEW.Id_Discord, NEW.dateChasse, NEW.estShiny);
+END
+$$
+DELIMITER ;
+
+ALTER TABLE `Chasse`
+  ADD KEY `Id_Pokemon` (`Id_Pokemon`),
+  ADD KEY `Id_Discord` (`Id_Discord`);
+
+ALTER TABLE `Chasse`
+  ADD CONSTRAINT `Chasse_ibfk_1` FOREIGN KEY (`Id_Pokemon`) REFERENCES `Pokemon` (`Id_Pokemon`),
+  ADD CONSTRAINT `Chasse_ibfk_2` FOREIGN KEY (`Id_Discord`) REFERENCES `Utilisateur` (`Id_Discord`);
+COMMIT;
+
 
 
 

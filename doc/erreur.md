@@ -21,3 +21,9 @@ Ce document liste toutes les erreurs possibles d'avoir en utilisant le Bot disco
 	Description : Le taux de capture généré est à -1
 	Fichier : commands/pokemon.js
 	Contact : astyell
+
+## Code d'erreur '04' :
+
+	Description : Il n'y a pas de pokemon pour ce taux de capture
+	Fichier : commands/safari.js
+	Contact : astyell
