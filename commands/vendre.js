@@ -11,12 +11,12 @@ const { client, config, db } = require ("../index.js");
 // récapitulatif des prix
 const TAUX_PRIX = 
 {
-    40: 100,
-    30: 250,
-    20: 400,
-    5: 800,
-    3: 1000,
-    2: 1500
+    40:  250,
+    30:  400,
+    20: 1000,
+    5:  2000,
+    3:  4000,
+    2:  8000,
 };
 
 // tableaux des acheteurs potentiels
