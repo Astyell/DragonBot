@@ -56,7 +56,7 @@ client = new DISCORD.Client({
 })
 
 // Récupération du token 
-client.login(require("../../tokens.json").bot.discord.ali.dragonBot)
+client.login(require("./config.json").token)
 
 
 // On définit tous les modules que l'on va exporte dans d'autres fichiers

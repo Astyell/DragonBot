@@ -121,6 +121,11 @@
 	Développeur : Astyell
 	Modification : Changement du nom de la commande de pokedex à pc, proposé par noli.
 
+	Version : 1.0.2
+	Date : 01/05/2024
+	Développeur : Astyell
+	Modification : Changement de site suite au changement de serveur.
+
 ## pokemon.js
 
 	Version : 1.0

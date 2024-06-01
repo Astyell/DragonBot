@@ -17,7 +17,8 @@ module.exports =
 
 module.exports.create = () => 
 {
-	db.query(`SELECT COUNT(*) AS totalPKM FROM Pokemon;`, function (err, totalPokemon, fields) {
+	db.query(`SELECT COUNT(*) AS totalPKM FROM Pokemon;`, function (err, totalPokemon, fields) 
+	{
 		client.application.commands.create
 		({
 			"name": "doublon", //Nom sensible à la casse, pas de majuscule
