@@ -94,8 +94,6 @@ module.exports.run = async (interaction) =>
 		if (pokemon.Id_Pokemon == 132 || pokemon.Id_Pokemon == 570 || pokemon.Id_Pokemon == 571) {idSearch = Math.floor(Math.random() * 1025);}
 		else                                                                                     {idSearch = pokemon.Id_Pokemon              ;}
 
-		console.log(idSearch);
-
 		// Réponse avec un embed
 		snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
 		{
@@ -107,7 +105,7 @@ module.exports.run = async (interaction) =>
 
 }
 
-function genererEmbed (pokemon, estShiny)
+function genererEmbed (pokemon, estShiny, captureData)
 {
 	let embed;
 
