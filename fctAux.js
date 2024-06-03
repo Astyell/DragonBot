@@ -5,6 +5,13 @@
  * @description Fonction utilisée dans plusieurs commandes différentes
  */
 
+module.exports = 
+{
+	getDateFormate,
+	getTauxCapture,
+	executeQuery
+};
+
 function getDateFormate() 
 {
 	// Date au format AAAA-MM-JJ
