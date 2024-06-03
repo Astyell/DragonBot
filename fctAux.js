@@ -5,9 +5,7 @@
  * @description Fonction utilisée dans plusieurs commandes différentes
  */
 
-const snekfetch = require('snekfetch')
-const { SlashCommandBuilder, channelLink } = require('discord.js');
-const { client, config, db } = require("./index.js");
+
 
 module.exports = 
 {
@@ -50,6 +48,8 @@ function getTauxCapture()
 
 function executeQuery(query, params)
 {
+	const { db } = require("./index.js");
+	
     return new Promise((resolve, reject) => 
 	{
         db.query(query, params, (err, results) => 
