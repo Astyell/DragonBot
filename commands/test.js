@@ -60,11 +60,11 @@ module.exports.run = async (interaction) =>
 
 	const aJouer = await executeQuery(`SELECT nom_Pokemon FROM Capture c JOIN Pokemon p ON c.Id_Pokemon = p.Id_Pokemon WHERE Id_Discord = ? AND date_Capture = ? `, [user.id, date]);
 
-	console.table(aJouer);
+	//console.table(aJouer); //debug
 
 	if (aJouer.length >= 1) // Il a déjà joué aujourd'hui
 	{
-		interaction.editReply ({ content: `Tu as déjà capturé un **${aJouer.nom_Pokemon}** aujourd'hui ! Retentes ta chance dès demain !` });
+		interaction.editReply ({ content: `Tu as déjà capturé un **${aJouer[0].nom_Pokemon}** aujourd'hui ! Retentes ta chance dès demain !` });
 		return;
 	}
 	else // Il n'a pas encore joué
