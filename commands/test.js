@@ -29,6 +29,12 @@ module.exports.create = () =>
 
 module.exports.run = async (interaction) => 
 {
+	/* ------------------------------------------------- */
+	/*             Mise en place interaction             */
+	/* ------------------------------------------------- */
+
+		await interaction.deferReply({ ephemeral: false });
+
 	/* ----------------------------------------------- */
 	/*           Initialisation des données            */
 	/* ----------------------------------------------- */
@@ -41,13 +47,28 @@ module.exports.run = async (interaction) =>
 	/*           Test des conditions de jeu            */
 	/* ----------------------------------------------- */
 
-	// On vient voir si c'est la première participation du joueur
+	// On ajoute l'utilisateur dans la base de données s'il n'a jamais joué
 
 	const infoUser = await executeQuery(`SELECT * FROM Utilisateur WHERE Id_Discord = ?`, [user.id]);
 
 	if (infoUser.length <= 0)
 	{
 		await executeQuery (`INSERT INTO Utilisateur VALUES (?, ?, ?)`, [user.id, user.username, 200]);
+	}
+
+	// On vient tester si le joueur a déjà joué aujourd'hui
+
+	const aJouer = await executeQuery(`SELECT nom_Pokemon FROM Capture c JOIN Pokemon p ON c.Id_Pokemon = p.Id_Pokemon WHERE Id_Discord = ? AND date_Capture = ? `, [user.id, date]);
+
+	if (aJouer.length >= 1) // Il a déjà joué aujourd'hui
+	{
+		interaction.editReply ({ content: `Tu as déjà capturé un **${aJouer.nom_Pokemon}** aujourd'hui ! Retentes ta chance dès demain !` });
+		return;
+	}
+	else // Il n'a pas encore joué
+	{
+		interaction.editReply ({ content: `Tu n'as pas encore joué :D !` });
+		return;
 	}
 
 }
