@@ -1,9 +1,11 @@
-/**
+/** pokemon.js
  * @author Astyell, Kinton
- * @version 1.1.3 - 14/01/2023
+ * @version 2.0.0 - 03/06/2024
  * @creation 14/10/2023 
  * @description Permet de capturer un pokémon selon un taux de capture défini dans la base de donnée
  */
+
+const { getDateFormate, getTauxCapture, executeQuery } = require ("../fctAux.js");
 
 const snekfetch = require('snekfetch')
 const { SlashCommandBuilder, channelLink } = require('discord.js');
@@ -27,185 +29,96 @@ module.exports.create = () =>
 
 module.exports.run = async (interaction) => 
 {
+	/* ------------------------------------------------- */
+	/*             Mise en place interaction             */
+	/* ------------------------------------------------- */
+
+		await interaction.deferReply({ ephemeral: false });
+
 	/* ----------------------------------------------- */
 	/*           Initialisation des données            */
 	/* ----------------------------------------------- */
 
-	// Récupère les données de l'utilisateur
-
-	let idUser = interaction.user.id;
-	let nameUser = interaction.user.username;
-
-	// Date au format AAAA-MM-JJ
-	let dateAjd = new Date();
-
-	// Formatage de la data pour un format correct
-	let dateFormate = dateAjd.getFullYear() + "-";
-
-	// Si le mois est < 10 il s'écrira "2" hors nous cherchons à avoir "02"
-	(dateAjd.getMonth() + 1) < 10 ? dateFormate += "0" + (dateAjd.getMonth() + 1) : dateFormate += (dateAjd.getMonth() + 1);
-
-	dateFormate += "-" + dateAjd.getDate();
-
-	//console.log(dateAjd);
-	//console.log(dateFormate);
-
-	// Récupère le random
-	let random = Math.floor(Math.random() * 100 );
-	let tauxCapture = -1;
-
-	console.log(random);
-	
-	if      (random <  40)                { tauxCapture = 40; } 
-	else if (random >= 40 && random < 70) { tauxCapture = 30; } 
-	else if (random >= 70 && random < 90) { tauxCapture = 20; } 
-	else if (random >= 90 && random < 95) { tauxCapture =  5; } 
-	else if (random >= 95 && random < 98) { tauxCapture =  3; } 
-	else if (random >= 98)                { tauxCapture  = 2; } 
-	else                                  { tauxCapture = -1; }
-
-	if(tauxCapture == -1) 
-	{
-		interaction.reply({ content: "Erreur 03, contactez l'administrateur <@228948435259228160>.", ephemeral: false });
-		return;
-	}
+	const user = interaction.user;
+	const date = getDateFormate();
+	const taux = getTauxCapture();
 
 	/* ----------------------------------------------- */
 	/*           Test des conditions de jeu            */
 	/* ----------------------------------------------- */
 
-	// On vient tester si l'utilisateurs a déjà joué
-	db.query(`SELECT * FROM Utilisateur WHERE Id_Discord = ${idUser}`, function (err, result, fields) {
-		if (err) { console.error(err); }
+	// On ajoute l'utilisateur dans la base de données s'il n'a jamais joué
 
-		if (!result[0]) 
+	const infoUser = await executeQuery(`SELECT * FROM Utilisateur WHERE Id_Discord = ?`, [user.id]);
+
+	if (infoUser.length <= 0)
+	{
+		await executeQuery (`INSERT INTO Utilisateur VALUES (?, ?, ?)`, [user.id, user.username, 200]);
+	}
+
+	// On vient tester si le joueur a déjà joué aujourd'hui
+
+	const aJouer = await executeQuery(`SELECT nom_Pokemon FROM Capture c JOIN Pokemon p ON c.Id_Pokemon = p.Id_Pokemon WHERE Id_Discord = ? AND date_Capture = ? `, [user.id, date]);
+
+	//console.table(aJouer); //debug
+
+	if (aJouer.length >= 1) // Il a déjà joué aujourd'hui
+	{
+		interaction.editReply ({ content: `Tu as déjà capturé un **${aJouer[0].nom_Pokemon}** aujourd'hui ! Retentes ta chance dès demain !` });
+		return;
+	}
+	else // Il n'a pas encore joué
+	{
+		// On prend tous les pokémons qui ont le taux de capture
+		const ensPokemon = await executeQuery (`SELECT * FROM Pokemon WHERE tauxCapture = ?`, [taux])
+		
+		// On en choisit un au hasard
+		const pokemon = ensPokemon[Math.floor(Math.random() * ensPokemon.length )];
+
+		// On vérifie s'il est shiny ou non
+		const estShiny = Math.floor(Math.random() * 4096 + 1) == 2 ? 1 : 0;
+
+		// On ajoute le pokémons capturé
+		await executeQuery (`INSERT INTO Capture VALUES (?, ?, ?, ?)`, [pokemon.Id_Pokemon, user.id, date, estShiny]);
+
+		// On envoie les logs de capture
+		const channel = client.channels.cache.get(config.channelLog);
+		channel.send(`${user.username} as capturé un ` + pokemon.nom_Pokemon + `.`);
+
+		console.log (`${user.username} a capturé un ${pokemon.nom_Pokemon} {Taux : ${taux}}`);
+
+		// On répond avec l'embed
+		let idSearch;
+
+		// Gestion des easteregg
+		if (pokemon.Id_Pokemon == 132 || pokemon.Id_Pokemon == 570 || pokemon.Id_Pokemon == 571) {idSearch = Math.floor(Math.random() * 1025);}
+		else                                                                                     {idSearch = pokemon.Id_Pokemon              ;}
+
+		// Réponse avec un embed
+		snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
 		{
-			db.query(`INSERT INTO Utilisateur VALUES (${idUser}, '${nameUser}', 200)`, function (err, result, fields) {
-				if (err) { console.error(err); }
-			});
-		}
-	});
-
-	// On test si l'utilisateur a déjà joué aujourd"hui 
-	db.query(`SELECT * FROM Capture WHERE Id_Discord = ${idUser} AND date_capture = '${dateFormate}'`, function (err, result, fields) {
-
-		// Si il y a un résultat il a déjà joué
-		if (result.length >= 1) 
-		{
-			interaction.reply({ content: "Erreur, tu as déjà joué, essaie demain !", ephemeral: false });
+			interaction.editReply ({ content: ``, embeds : genererEmbed(pokemon, estShiny, captureData) });
 			return;
-		}
+		});
 
-		// Sinon on le fait jouer
-		else if (result.length <= 0) 
-		{
-
-			// On sélectionne le pokémon choisi aléatoirement
-			db.query(`SELECT nom_Pokemon FROM Pokemon WHERE tauxCapture = ${tauxCapture}`, function (err, result, fields) 
-			{
-				// On récupère le nombre total de pokémon avec le taux de capture
-				let nbPokemon = result.length;
-
-				if (result.length >= 1)
-				{
-					let pokemon = result[Math.floor(Math.random() * nbPokemon )].nom_Pokemon;
-					console.log(pokemon);
-
-					db.query(`SELECT id_Pokemon, nom_Pokemon FROM Pokemon WHERE nom_Pokemon = '${pokemon}'`, function (err, resultat, fields) 
-					{
-						if (resultat.length >= 1)
-						{
-							// La capture est-elle shiny ou non ?
-							let isShiny;
-							Math.floor(Math.random() * 4096 + 1) == 2 ? isShiny = 1 : isShiny = 0;
-
-							//console.log("1");
-
-							db.query(`INSERT INTO Capture VALUES (${resultat[0].id_Pokemon}, ${idUser}, '${dateFormate}', ${isShiny})`, function (err, results, fields) 
-							{
-								//console.log("2");
-
-								if (err)
-								{
-									console.error("3");
-									interaction.reply({ content: "Code erreur 02, Contactez l'administrateur <@228948435259228160>.", ephemeral: false });
-									return;
-								}
-								
-								const channel = client.channels.cache.get(config.channelLog);
-								channel.send(`${nameUser} as capturé un ` + resultat[0].nom_Pokemon + `.`);
-
-								if (resultat[0].id_Pokemon == 132 || resultat[0].id_Pokemon == 570 || resultat[0].id_Pokemon == 571 ) 
-								{
-									idEaster = Math.floor(Math.random() * 1025);
-
-									console.log("easteregg");
-
-									snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idEaster}/`).then (captureData => 
-									{
-									interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
-									})
-									return;
-								}
-								else
-								{
-									snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${resultat[0].id_Pokemon}/`).then (captureData =>
-									{
-									interaction.reply({content : "", embeds : genererEmbed(nameUser, resultat[0].nom_Pokemon, isShiny, tauxCapture, resultat[0].id_Pokemon, captureData), ephemeral: false });
-									})
-									return;
-								}
-							});
-						}
-						else if (resultat.length <= 0)
-						{
-							interaction.reply({ content: "Code erreur 01, Contactez l'administrateur <@228948435259228160>.", ephemeral: false });
-							// Je viens de faire la doc, comment tu fais pour que ça te ping directment ? <@userId> <#ChannelId> Ok merci
-						}
-						else
-						{
-							console.error(err)
-						}
-					});
-				}
-				else if (result.length <= 0)
-				{
-					interaction.reply({ content: "Code erreur 01, Contactez l'administrateur <@228948435259228160>.", ephemeral: false });
-					// Je viens de faire la doc, comment tu fais pour que ça te ping directment ? <@userId> <#ChannelId> Ok merci
-					return;
-				}
-				else 
-				{ 
-					console.error(err);
-				}
-			});
-		}
-		else
-		{
-			console.error(err)
-			interaction.reply({ content: 'Erreur, commande en cours de développement', embeds: [], ephemeral: false });
-			return;	
-		}
-	});
-
+	}
 
 }
 
-function genererEmbed (nomUser, nom_Pokemon, Shiny, tauxCapture, id_Pokemon, captureData)
+function genererEmbed (pokemon, estShiny, captureData)
 {
 	let embed;
-	
+
 	captureData = captureData.body;
 
-	let isShiny;
-	Shiny == 1 ? isShiny = "Oui" : isShiny = "Non";
+	const shiny = estShiny == 1 ? "Oui" : "Non";
 
-	let nomPokemonURL = nom_Pokemon.replace(" ", "_");
+	let nomPokemonURL = pokemon.nom_Pokemon.replace(" ", "_");
 
 	embed = 
 	[{
 		"type": "rich",
-		"title": `Félictations ${nomUser} tu as capturé un ${nom_Pokemon} (N°${id_Pokemon}) !`,
+		"title": `Félictations ! Tu as capturé un ${pokemon.nom_Pokemon} (N°${pokemon.Id_Pokemon}) !`,
 		"url": `https://www.pokepedia.fr/${nomPokemonURL}`,
 		"description": "",
 		"color": 0x1b5280,
@@ -213,18 +126,18 @@ function genererEmbed (nomUser, nom_Pokemon, Shiny, tauxCapture, id_Pokemon, cap
 		[
 			{
 			"name": `Est-il shiny ?`,
-			"value": `${isShiny}`,
+			"value": `${shiny}`,
 			"inline": false
 			},
 			{
 			"name": `Rareté du pokémon ?`,
-			"value": `${tauxCapture} %`,
+			"value": `${pokemon.tauxCapture} %`,
 			"inline": false
 			}
 		],
 		"thumbnail":
 		{
-			"url": `${captureData.sprites[`front_${Shiny ? "shiny" : "default"}`]}`	
+			"url": `${captureData.sprites[`front_${estShiny ? "shiny" : "default"}`]}`	
 		},
 	}]
 
