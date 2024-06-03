@@ -36,3 +36,21 @@ function getTauxCapture()
 
 	return tauxCapture;
 }
+
+function executeQuery(query, params)
+{
+    return new Promise((resolve, reject) => 
+	{
+        db.query(query, params, (err, results) => 
+		{
+            if (err) 
+			{
+                reject(err);
+            } 
+			else 
+			{
+                resolve(results);
+            }
+        });
+    });
+}
