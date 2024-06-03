@@ -85,9 +85,59 @@ module.exports.run = async (interaction) =>
 		const channel = client.channels.cache.get(config.channelLog);
 		channel.send(`${user.username} as capturé un ` + pokemon.nom_Pokemon + `.`);
 
-		interaction.editReply ({ content: `Gg t'as capturé un pokemon, attends un peu stp maintenant` });
+		console.log (`${user.username} a capturé un ${pokemon.nom_Pokemon} {Taux : ${taux}}`);
+
+		// On répond avec l'embed
+
+		interaction.editReply ({ content: ``, embeds : await genererEmbed(pokemon, estShiny) });
 		return;
 
 	}
 
+}
+
+async function genererEmbed (pokemon, estShiny)
+{
+	let embed;
+	let idSearch;
+
+	if (pokemon.Id_Pokemon == 132 || pokemon.Id_Pokemon == 570 || pokemon.Id_Pokemon == 571) {idSearch = Math.floor(Math.random() * 1025);}
+	else                                                                                     {idSearch = pokemon.Id_Pokemon              ;}
+
+	snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
+	{
+
+		const shiny = estShiny == 1 ? "Oui" : "Non";
+
+		let nomPokemonURL = pokemon.nom_Pokemon.replace(" ", "_");
+
+		embed = 
+		[{
+			"type": "rich",
+			"title": `Félictations ! Tu as capturé un ${pokemon.nom_Pokemon} (N°${pokemon.Id_Pokemon}) !`,
+			"url": `https://www.pokepedia.fr/${nomPokemonURL}`,
+			"description": "",
+			"color": 0x1b5280,
+			"fields": 
+			[
+				{
+				"name": `Est-il shiny ?`,
+				"value": `${shiny}`,
+				"inline": false
+				},
+				{
+				"name": `Rareté du pokémon ?`,
+				"value": `${pokemon.TauxCapture} %`,
+				"inline": false
+				}
+			],
+			"thumbnail":
+			{
+				"url": `${captureData.body.sprites[`front_${estShiny ? "shiny" : "default"}`]}`	
+			},
+		}]
+
+	})
+
+	return embed;
 }
