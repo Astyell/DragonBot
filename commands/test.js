@@ -88,56 +88,58 @@ module.exports.run = async (interaction) =>
 		console.log (`${user.username} a capturé un ${pokemon.nom_Pokemon} {Taux : ${taux}}`);
 
 		// On répond avec l'embed
+		let idSearch;
 
-		interaction.editReply ({ content: ``, embeds : await genererEmbed(pokemon, estShiny) });
-		return;
+		// Gestion des easteregg
+		if (pokemon.Id_Pokemon == 132 || pokemon.Id_Pokemon == 570 || pokemon.Id_Pokemon == 571) {idSearch = Math.floor(Math.random() * 1025);}
+		else                                                                                     {idSearch = pokemon.Id_Pokemon              ;}
+
+		// Réponse avec un embed
+		snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
+		{
+			interaction.editReply ({ content: `Coucou !`, embeds : genererEmbed(pokemon, estShiny, captureData) });
+			return;
+		});
 
 	}
 
 }
 
-async function genererEmbed (pokemon, estShiny)
+function genererEmbed (pokemon, estShiny)
 {
 	let embed;
-	let idSearch;
 
-	if (pokemon.Id_Pokemon == 132 || pokemon.Id_Pokemon == 570 || pokemon.Id_Pokemon == 571) {idSearch = Math.floor(Math.random() * 1025);}
-	else                                                                                     {idSearch = pokemon.Id_Pokemon              ;}
+	captureData = captureData.body;
 
-	snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
-	{
+	const shiny = estShiny == 1 ? "Oui" : "Non";
 
-		const shiny = estShiny == 1 ? "Oui" : "Non";
+	let nomPokemonURL = pokemon.nom_Pokemon.replace(" ", "_");
 
-		let nomPokemonURL = pokemon.nom_Pokemon.replace(" ", "_");
-
-		embed = 
-		[{
-			"type": "rich",
-			"title": `Félictations ! Tu as capturé un ${pokemon.nom_Pokemon} (N°${pokemon.Id_Pokemon}) !`,
-			"url": `https://www.pokepedia.fr/${nomPokemonURL}`,
-			"description": "",
-			"color": 0x1b5280,
-			"fields": 
-			[
-				{
-				"name": `Est-il shiny ?`,
-				"value": `${shiny}`,
-				"inline": false
-				},
-				{
-				"name": `Rareté du pokémon ?`,
-				"value": `${pokemon.TauxCapture} %`,
-				"inline": false
-				}
-			],
-			"thumbnail":
+	embed = 
+	[{
+		"type": "rich",
+		"title": `Félictations ! Tu as capturé un ${pokemon.nom_Pokemon} (N°${pokemon.Id_Pokemon}) !`,
+		"url": `https://www.pokepedia.fr/${nomPokemonURL}`,
+		"description": "",
+		"color": 0x1b5280,
+		"fields": 
+		[
 			{
-				"url": `${captureData.body.sprites[`front_${estShiny ? "shiny" : "default"}`]}`	
+			"name": `Est-il shiny ?`,
+			"value": `${shiny}`,
+			"inline": false
 			},
-		}]
-
-	})
+			{
+			"name": `Rareté du pokémon ?`,
+			"value": `${pokemon.TauxCapture} %`,
+			"inline": false
+			}
+		],
+		"thumbnail":
+		{
+			"url": `${captureData.sprites[`front_${estShiny ? "shiny" : "default"}`]}`	
+		},
+	}]
 
 	return embed;
 }
