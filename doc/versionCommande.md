@@ -148,6 +148,11 @@
 	Développeur : Astyell
 	Bug Fix : Correction pour M. Mime
 
+	Version : 2.0.0
+	Date : 04/06/2024
+	Développeur : Astyell
+	Modification : Fluidification du code et correction de bugs lié au temps de réponse des query DB
+
 ## stat.js
 
 	Version : 1.0
