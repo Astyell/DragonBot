@@ -97,7 +97,7 @@ module.exports.run = async (interaction) =>
 		// Réponse avec un embed
 		snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
 		{
-			interaction.editReply ({ content: `Coucou !`, embeds : genererEmbed(pokemon, estShiny, captureData) });
+			interaction.editReply ({ content: ``, embeds : genererEmbed(pokemon, estShiny, captureData) });
 			return;
 		});
 
@@ -131,7 +131,7 @@ function genererEmbed (pokemon, estShiny, captureData)
 			},
 			{
 			"name": `Rareté du pokémon ?`,
-			"value": `${pokemon.TauxCapture} %`,
+			"value": `${pokemon.tauxCapture} %`,
 			"inline": false
 			}
 		],
