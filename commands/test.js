@@ -5,7 +5,7 @@
  * @description Permet de capturer un pokémon selon un taux de capture défini dans la base de donnée
  */
 
-const { getDateFormate, getTauxCapture } = require ("../fctAux.js");
+const { getDateFormate, getTauxCapture, executeQuery } = require ("../fctAux.js");
 
 const snekfetch = require('snekfetch')
 const { SlashCommandBuilder, channelLink } = require('discord.js');
