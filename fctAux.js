@@ -5,7 +5,7 @@
  * @description Fonction utilisée dans plusieurs commandes différentes
  */
 
-const { client, config, db } = require("../index.js");
+const { client, config, db } = require("./index.js");
 
 module.exports = 
 {
