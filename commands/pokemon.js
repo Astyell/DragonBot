@@ -20,11 +20,11 @@ module.exports =
 module.exports.create = () => 
 {
 	client.application.commands.create
-		({
-			"name": "pokemon",
-			"description": "Cette commande vous permet d'attraper un pokémon tous les jours."
+	({
+		"name": "pokemon",
+		"description": "Cette commande vous permet d'attraper un pokémon tous les jours."
 
-		}, config.guildId)
+	}, config.guildId)
 };
 
 module.exports.run = async (interaction) => 
