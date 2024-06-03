@@ -69,8 +69,28 @@ module.exports.run = async (interaction) =>
 	}
 	else // Il n'a pas encore joué
 	{
-		interaction.editReply ({ content: `Tu n'as pas encore joué :D !` });
+		// On prend tous les pokémons qui ont le taux de capture
+		const ensPokemon = await executeQuery (`SELECT * FROM Pokemon WHERE tauxCapture = ?`, [taux])
+		
+		// On en choisit un au hasard
+		const pokemon = ensPokemon[Math.floor(Math.random() * ensPokemon.length )];
+
+		// On vérifie s'il est shiny ou non
+		const estShiny = Math.floor(Math.random() * 4096 + 1) == 2 ? 1 : 0;
+
+		// On ajoute le pokémons capturé
+		await executeQuery (`INSERT INTO PC (Id_Pokemon, Id_DresseurAct, Id_DresseurOri, dateCaptureEchange, estShiny) VALUES (?, ?, ?, ?, ?)`, [pokemon.Id_Pokemon, user.id, user.id, date, estShiny]);
+
+		// On ajoute la prime de capture du jour
+		await executeQuery (`UPDATE	Utilisateur SET monnaie = monnaie + 500 WHERE Id_Discord = ?`, [user.id]);
+
+		// On envoie les logs de capture
+		const channel = client.channels.cache.get(config.channelLog);
+		channel.send(`${user.username} as capturé un ` + pokemon.nom_Pokemon + `.`);
+
+		interaction.editReply ({ content: `Gg t'as capturé un pokemon, attends un peu stp maintenant` });
 		return;
+
 	}
 
 }
