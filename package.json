@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "discord.js": "^14.15.2",
+    "mariadb": "^3.3.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.10.0",
     "node-cron": "^3.0.3",
     "snekfetch": "^4.0.4",
     "token": "^0.1.0"
