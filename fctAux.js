@@ -5,6 +5,8 @@
  * @description Fonction utilisée dans plusieurs commandes différentes
  */
 
+const snekfetch = require('snekfetch')
+const { SlashCommandBuilder, channelLink } = require('discord.js');
 const { client, config, db } = require("./index.js");
 
 module.exports = 
