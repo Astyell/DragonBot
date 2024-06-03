@@ -79,10 +79,7 @@ module.exports.run = async (interaction) =>
 		const estShiny = Math.floor(Math.random() * 4096 + 1) == 2 ? 1 : 0;
 
 		// On ajoute le pokémons capturé
-		await executeQuery (`INSERT INTO PC (Id_Pokemon, Id_DresseurAct, Id_DresseurOri, dateCaptureEchange, estShiny) VALUES (?, ?, ?, ?, ?)`, [pokemon.Id_Pokemon, user.id, user.id, date, estShiny]);
-
-		// On ajoute la prime de capture du jour
-		await executeQuery (`UPDATE	Utilisateur SET monnaie = monnaie + 500 WHERE Id_Discord = ?`, [user.id]);
+		await executeQuery (`INSERT INTO Capture VALUES (?, ?, ?, ?)`, [pokemon.Id_Pokemon, user.id, date, estShiny]);
 
 		// On envoie les logs de capture
 		const channel = client.channels.cache.get(config.channelLog);
