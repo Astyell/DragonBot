@@ -89,7 +89,7 @@ function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 	[
 		{
 			"type": "rich",
-		    "title": `Profile de ${user.username}`,
+		    "title": `Profile de ${user.nickname}`,
 		    "color": 0x2ba3a3,
 		    thumbnail:
 			{
