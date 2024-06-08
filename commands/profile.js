@@ -20,7 +20,7 @@ module.exports.create = () =>
 {
 	client.application.commands.create
 	({
-		"name": "test",
+		"name": "profile",
 		"description": "Renvoie les statistiques d'un joueur.",
 		options:
 		[
