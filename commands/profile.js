@@ -90,7 +90,7 @@ function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 		    "color": 0x2ba3a3,
 		    thumbnail:
 			{
-				url:cible.displayAvatarURL()
+				url:user.displayAvatarURL()
 			},
 		
 		    "description": `**Pokémons uniques :** ${nbPokemonDiff} / ${nbPokemon} \n**Porte-monnaie :** ${monnaie}`
