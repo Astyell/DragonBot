@@ -143,14 +143,28 @@ client.on('guildMemberAdd', async member =>
 {
     const guild = member.guild;
     
-    if (guild?.channels?.welcome && guild.id == CONFIG.guildId) 
+    if (guild.id == CONFIG.guildId) 
     {
-        client.channels.fetch(guild.channels.welcome).then(c => 
+        client.channels.fetch(CONFIG.channel.welcome).then(c => 
         {
             c.send({ embeds: [{ title: `Bienvenue ${member.displayName} sur le serveur !`, color: 65280 }] })
         })
     }
+})
 
+client.on('guildMemberRemove', async member => 
+{
+    console.log("a pu pouf");
+
+    const guild = member.guild;
+    
+    if (guild.id == CONFIG.guildId) 
+    {
+        client.channels.fetch(CONFIG.channel.welcome).then(c => 
+        {
+            c.send({ embeds: [{ title: `${member.displayName} viens de partir ! Au revoir !`, color: 16711680 }] })
+        })
+    }
 })
 
 // Ca je sais pas ce que c'est mais ça doit être cool
