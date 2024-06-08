@@ -37,7 +37,7 @@ module.exports.create = () =>
 	/// Faire clique droit sur un utilisateur pour executer la meme commande :
 	client.application.commands.create
 	({
-		"name": "test",
+		"name": "profile",
 		type:2
 
 	}, config.guildId)
