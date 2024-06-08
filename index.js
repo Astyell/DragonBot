@@ -154,6 +154,8 @@ client.on('guildMemberAdd', async member =>
 
 client.on('guildMemberRemove', async member => 
 {
+    console.log("a pu pouf");
+
     const guild = member.guild;
     
     if (guild.id == CONFIG.guildId) 
