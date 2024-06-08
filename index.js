@@ -141,20 +141,15 @@ client.on('messageCreate', message =>
 
 client.on('guildMemberAdd', async member => 
 {
-    console.log("Nouvel arrivant !");
-
     const guild = member.guild;
-
-    console.log(guild.id == CONFIG.guildRP);
     
-    if (guild.id == CONFIG.guildRP) 
+    if (guild.id == CONFIG.guildId) 
     {
         client.channels.fetch(CONFIG.channel.welcome).then(c => 
         {
             c.send({ embeds: [{ title: `Bienvenue ${member.displayName} sur le serveur !`, color: 65280 }] })
         })
     }
-
 })
 
 // Ca je sais pas ce que c'est mais ça doit être cool
