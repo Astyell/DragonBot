@@ -141,6 +141,8 @@ client.on('messageCreate', message =>
 
 client.on('guildMemberAdd', async member => 
 {
+    console.log("Nouvelle arrivant !");
+    
     const guild = member.guild;
     
     if (guild?.channels?.welcome && guild.id == CONFIG.guildId) 
