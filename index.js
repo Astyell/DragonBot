@@ -68,7 +68,7 @@ const { REST, Routes } = require('discord.js');
 
 const rest = new REST().setToken(CONFIG.token);
 
-rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1163877449906528327'))
+rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1163107721495724113'))
 	.then(() => console.log('Successfully deleted guild command'))
 	.catch(console.error);
 
