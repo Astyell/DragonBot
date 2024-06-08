@@ -153,7 +153,7 @@
 	Développeur : Astyell
 	Modification : Fluidification du code et correction de bugs lié au temps de réponse des query DB
 
-## stat.js
+## profile.js
 
 	Version : 1.0
 	Date : 17/10/2023
@@ -164,6 +164,11 @@
 	Date : 25/10/2023
 	Développeur : kinton_hiryuu
 	Modifications : Sans paramètre, la commande affiche la stat de l'utilisateur qui l'a envoyé. Mais aussi disponible dans les application en raccourci rapide.
+
+	Version : 2.0.0
+	Date : 08/06/2024
+	Développeur : astyell
+	Modifications : Modification de stat.js -> profile.js résumé du profile du joueur.
 
 ## suggestion.js
 
