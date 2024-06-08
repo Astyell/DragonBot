@@ -82,8 +82,8 @@ module.exports.run = async (interaction) =>
 
 function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 {
-	const nbPKM = nbPokemon[0].nbPKM;
-	const nbPKMDiff = nbPokemonDiff[0].totalPKMDiff;
+	nbPokemon = nbPokemon[0].nbPKM;
+	nbPokemonDiff = nbPokemonDiff[0].totalPKMDiff;
 
 	const embed =
 	[
@@ -96,7 +96,7 @@ function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 				url:user.displayAvatarURL()
 			},
 		
-		    "description": `**Pokémons uniques :** ${nbPKMDiff} / ${nbPKM} \n**Porte-monnaie :** ${monnaie}`
+		    "description": `**Pokémons uniques :** ${nbPokemonDiff} / ${nbPokemon} \n**Porte-monnaie :** ${monnaie}`
 		}
 	]
 
