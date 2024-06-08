@@ -149,8 +149,7 @@ client.on('guildMemberAdd', async member =>
     
     if (guild.id == CONFIG.guildRP) 
     {
-
-        client.channels.fetch(guild.channels.welcome).then(c => 
+        client.channels.fetch(CONFIG.channel.welcome).then(c => 
         {
             c.send({ embeds: [{ title: `Bienvenue ${member.displayName} sur le serveur !`, color: 65280 }] })
         })
