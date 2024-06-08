@@ -64,13 +64,13 @@ module.exports = { discordClient: client, client, db, config: CONFIG }
 
 /* Supprimer une commande */
 
-const { REST, Routes } = require('discord.js');
+// const { REST, Routes } = require('discord.js');
 
-const rest = new REST().setToken(CONFIG.token);
+// const rest = new REST().setToken(CONFIG.token);
 
-rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1163877449906528327'))
-	.then(() => console.log('Successfully deleted guild command'))
-	.catch(console.error);
+// rest.delete(Routes.applicationGuildCommand(CONFIG.clientId, CONFIG.guildId, '1163877449906528327'))
+// 	.then(() => console.log('Successfully deleted guild command'))
+// 	.catch(console.error);
 
 // Lorsque le bot démarre il envoie deux trois messages de vérification dans la console
 client.once('ready', c => 
