@@ -93,7 +93,7 @@ function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 				url:user.displayAvatarURL()
 			},
 		
-		    "description": `**Pokémons uniques :** ${nbPokemonDiff} / ${nbPokemon} \n**Porte-monnaie :** ${monnaie}`
+		    "description": `**Pokémons uniques :** ${nbPokemonDiff[0].nbPKM} / ${nbPokemon[0].totalPKMDiff} \n**Porte-monnaie :** ${monnaie}`
 		}
 	]
 
