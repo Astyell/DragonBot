@@ -5,7 +5,9 @@
  * @description Fonction utilisée dans plusieurs commandes différentes
  */
 
-
+/// https://discord.com/developers/docs/interactions/application-commands#slash-commands
+/// https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command-json-params
+/// https://old.discordjs.dev/#/docs/discord.js/main/class/CommandInteractionOptionResolver
 
 module.exports = 
 {

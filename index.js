@@ -1,6 +1,6 @@
 /**
  * @author Kinton, Astyell
- * @version 2.2.1 - 28/11/2023
+ * @version 2.2.2 - 08/06/2024
  * @date 12/10/2023 
  * @description This is the main file of the application.
  */
@@ -73,7 +73,8 @@ module.exports = { discordClient: client, client, db, config: CONFIG }
 // 	.catch(console.error);
 
 // Lorsque le bot démarre il envoie deux trois messages de vérification dans la console
-client.once('ready', c => {
+client.once('ready', c => 
+{
     console.log(`${Date(Date.now()).toLocaleString('fr-FR')} | ${client.user.username} | ${client.guilds.cache.size} guilds`)
     console.log(`wesh`)
     commandsfile.forEach(files => 
@@ -136,6 +137,20 @@ client.on('messageCreate', message =>
     if (command == '/test') {
         message.reply(require('./lib/test.js'))
     }
+})
+
+client.on('guildMemberAdd', async member => 
+{
+    const guild = member.guild;
+    
+    if (guild?.channels?.welcome && guild.id == CONFIG.guildId) 
+    {
+        client.channels.fetch(guild.channels.welcome).then(c => 
+        {
+            c.send({ embeds: [{ title: `Bienvenue ${member.displayName} sur le serveur !`, color: 65280 }] })
+        })
+    }
+
 })
 
 // Ca je sais pas ce que c'est mais ça doit être cool
