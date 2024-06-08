@@ -152,6 +152,19 @@ client.on('guildMemberAdd', async member =>
     }
 })
 
+client.on('guildMemberRemove', async member => 
+{
+    const guild = member.guild;
+    
+    if (guild.id == CONFIG.guildId) 
+    {
+        client.channels.fetch(CONFIG.channel.welcome).then(c => 
+        {
+            c.send({ embeds: [{ title: `${member.displayName} viens de partir ! Au revoir !`, color: 16711680 }] })
+        })
+    }
+})
+
 // Ca je sais pas ce que c'est mais ça doit être cool
 const fs = require('node:fs');
 
