@@ -82,6 +82,9 @@ module.exports.run = async (interaction) =>
 
 function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 {
+	console.table(nbPokemon);
+	console.table(nbPokemonDiff);
+
 	const embed =
 	[
 		{
