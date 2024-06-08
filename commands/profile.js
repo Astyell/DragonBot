@@ -82,7 +82,7 @@ module.exports.run = async (interaction) =>
 
 function genererEmbed (user, monnaie, nbPokemon, nbPokemonDiff)
 {
-	console.table(user);
+	//console.table(user);
 
 	nbPokemon = nbPokemon[0].nbPKM;
 	nbPokemonDiff = nbPokemonDiff[0].totalPKMDiff;
