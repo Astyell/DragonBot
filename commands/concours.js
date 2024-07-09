@@ -59,7 +59,7 @@ module.exports.run = async (interaction) =>
 
 	const user = interaction.options.getUser('utilisateur');
 	const date = getDateFormate();
-	const taux = 100 - interaction.options.getInteger('tauxcapture');
+	const taux = interaction.options.getInteger('tauxcapture');
 
 	/* ----------------------------------------------- */
 	/*           Test des conditions de jeu            */
