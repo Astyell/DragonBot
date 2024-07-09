@@ -5,8 +5,10 @@
  * @description Permet de capturer un pokémon pour quelqu'un qui a gagné un concours
  */
 
+const { getDateFormate, getTauxCapture, executeQuery } = require ("../fctAux.js");
+
 const snekfetch = require('snekfetch')
-const { SlashCommandBuilder, channelLink, userMention } = require('discord.js');
+const { SlashCommandBuilder, channelLink } = require('discord.js');
 const { client, config, db } = require("../index.js");
 
 module.exports = 
