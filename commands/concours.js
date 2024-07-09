@@ -98,6 +98,7 @@ module.exports.run = async (interaction) =>
 	{
 		const chanEnvoie = client.channels.cache.get(interaction.channel.id);
 		chanEnvoie.send({ content: `<@${user.id}>`, embeds : genererEmbed(pokemon, estShiny, captureData) });
+		interaction.reply({ content: 'Le pokémon a bien été envoyé !'});
 		return;
 	});
 
