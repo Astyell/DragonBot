@@ -86,7 +86,7 @@ module.exports.run = async (interaction) =>
 
 	// On envoie les logs de capture
 	const channel = client.channels.cache.get(config.channelLog);
-	channel.send(`${user.username} as gagné un ` + pokemon.nom_Pokemon + `.`);
+	channel.send(`${user.username} as **gagné** un ` + pokemon.nom_Pokemon + `.`);
 
 	console.log (`${user.username} a gagné un ${pokemon.nom_Pokemon} {Taux : ${taux}}`);
 
