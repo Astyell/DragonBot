@@ -102,7 +102,7 @@ module.exports.run = async (interaction) =>
 	// Réponse avec un embed
 	snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
 	{
-		interaction.editReply ({ content: `<@${user.is}>`, embeds : genererEmbed(pokemon, estShiny, captureData) });
+		interaction.editReply ({ content: `<@${user.id}>`, embeds : genererEmbed(pokemon, estShiny, captureData) });
 		return;
 	});
 
