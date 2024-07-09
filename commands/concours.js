@@ -47,12 +47,6 @@ module.exports.create = () =>
 
 module.exports.run = async (interaction) => 
 {
-	/* ------------------------------------------------- */
-	/*             Mise en place interaction             */
-	/* ------------------------------------------------- */
-
-	await interaction.deferReply({ ephemeral: false });
-
 	/* ----------------------------------------------- */
 	/*           Initialisation des données            */
 	/* ----------------------------------------------- */
@@ -102,7 +96,8 @@ module.exports.run = async (interaction) =>
 	// Réponse avec un embed
 	snekfetch.get(`https://pokeapi.co/api/v2/pokemon/${idSearch}/`).then (captureData => 
 	{
-		interaction.editReply ({ content: `<@${user.id}>`, embeds : genererEmbed(pokemon, estShiny, captureData) });
+		const chanEnvoie = client.channels.cache.get(interaction.channel.id);
+		chanEnvoie.send({ content: `<@${user.id}>`, embeds : genererEmbed(pokemon, estShiny, captureData) });
 		return;
 	});
 
